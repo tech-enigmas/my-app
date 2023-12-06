@@ -9,13 +9,13 @@ import { ImageBackground,
 const image = { uri: "https://images.unsplash.com/photo-1548932134-3d7d765bece2?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"};
 // import { useFonts } from "expo-font";
 // import { useRouter } from 'expo-router';
-// import DiscoverScreen from './DiscoverScreen.js';
+import DiscoverScreen from './DiscoverScreen.js';
 // import MenuBtn from '../components/MenuBtn';
 // import { icons } from '../constants/icons.js';
 import { useState } from 'react';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Haptics from 'expo-haptics';
 // import { MenuContext,
 //   Menu,
@@ -44,9 +44,9 @@ const Home = ({navigation})  => {
       {/* <MenuProvider styles={styles.menuContainer}>
         <View style={styles.heading}>
           <Menu>
-            <MenuTrigger>
+            <MenuTrigger> */}
               <Icon name='menu' size={28} color='#0096c7'/>
-            </MenuTrigger>
+            {/* </MenuTrigger>
             <MenuOptions>
               <MenuOption onSelect={() => navigation.navigate('Discover')} text='Explore'/>
               <MenuOption onSelect={() => navigation.navigate('Hiking')} text='Hiking'/>
@@ -54,9 +54,9 @@ const Home = ({navigation})  => {
               <MenuOption onSelect={() => navigation.navigate('Airbnb')} text='Airbnb'/>
 
             </MenuOptions>
-          </Menu>
+          </Menu> */}
         <Icon name='person' size={28} color='#0096c7'/>
-      </View>
+      {/* </View>
       </MenuProvider> */}
         <Text style={styles.titleText}>NOMAD</Text>
         <Text style={styles.subtitleText}>Your all in one travel planner</Text>

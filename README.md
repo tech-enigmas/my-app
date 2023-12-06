@@ -232,7 +232,6 @@ json
     }
   }
 ]
-```
 
 Get single trip the user made (requires trip id)
 domain/travel-routes/${id}
