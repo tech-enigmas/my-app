@@ -17,12 +17,12 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Haptics from 'expo-haptics';
-// import { MenuContext,
-//   Menu,
-//   MenuOptions,
-//   MenuOption,
-//   MenuTrigger,
-//   MenuProvider,} from 'react-native-popup-menu';
+import { MenuContext,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,} from 'react-native-popup-menu';
 
 const Home = ({navigation})  => {
   // const [fontsLoaded] = useFonts({
@@ -41,23 +41,24 @@ const Home = ({navigation})  => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)' />
       <ImageBackground source={image} style={styles.image}>
-      {/* <MenuProvider styles={styles.menuContainer}>
+      <MenuProvider styles={styles.menuContainer}>
         <View style={styles.heading}>
           <Menu>
-            <MenuTrigger> */}
+            <MenuTrigger>
               <Icon name='menu' size={28} color='#0096c7'/>
-            {/* </MenuTrigger>
+            </MenuTrigger>
             <MenuOptions>
               <MenuOption onSelect={() => navigation.navigate('Discover')} text='Explore'/>
               <MenuOption onSelect={() => navigation.navigate('Hiking')} text='Hiking'/>
               <MenuOption onSelect={() => navigation.navigate('Camping')} text='Camping'/>
               <MenuOption onSelect={() => navigation.navigate('Airbnb')} text='Airbnb'/>
+              <MenuOption onSelect={() => navigation.navigate('Blog')} text='Travel Blog'/>
 
             </MenuOptions>
-          </Menu> */}
+          </Menu>
         <Icon name='person' size={28} color='#0096c7'/>
-      {/* </View>
-      </MenuProvider> */}
+      </View>
+      </MenuProvider>
         <Text style={styles.titleText}>NOMAD</Text>
         <Text style={styles.subtitleText}>Your all in one travel planner</Text>
 

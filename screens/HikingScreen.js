@@ -18,12 +18,12 @@ const {width} = Dimensions.get('screen');
 import trails from '../constants/trails';
 import popTrails from '../constants/popTrails';
 import * as Haptics from 'expo-haptics';
-// import { MenuContext,
-//   Menu,
-//   MenuOptions,
-//   MenuOption,
-//   MenuTrigger,
-//   MenuProvider,} from 'react-native-popup-menu';
+import { MenuContext,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,} from 'react-native-popup-menu';
 
 const HikingScreen = ({navigation}) => {
 
@@ -93,18 +93,18 @@ const PopularCard = ({popTrail}) => {
   <SafeAreaView style={{backgroundColor:'#e4f6f8'}}>
   <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
   
-  {/* <MenuProvider style={style.menuContainer}> */}
+  <MenuProvider style={style.menuContainer}>
     <View style={style.heading}>
-      {/* <Menu>
-        <MenuTrigger> */}
+      <Menu>
+        <MenuTrigger>
           <Icon name='menu' size={28} color='#0096c7'/>
-        {/* </MenuTrigger>
+        </MenuTrigger>
         <MenuOptions>
               <MenuOption onSelect={() => navigation.navigate('Discover')} text='Explore'/>
               <MenuOption onSelect={() => navigation.navigate('Hiking')} text='Hiking'/>
               <MenuOption onSelect={() => navigation.navigate('Camping')} text='Camping'/>
         </MenuOptions>
-      </Menu> */}
+      </Menu>
   
     <Pressable 
       onPress={()=>navigation.navigate('Profile')}
@@ -112,7 +112,7 @@ const PopularCard = ({popTrail}) => {
       <Icon name='person' size={28} color='#0096c7'/>
     </Pressable>
   </View>
-        {/* </MenuProvider> */}
+        </MenuProvider>
 
      <View style={style.backArrow}>
       <Icon 
