@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 import { 
   Dimensions, 
   FlatList, 
@@ -9,6 +10,7 @@ import {
   StatusBar, 
   StyleSheet, 
   Text, 
+  TextInput,
   TouchableOpacity, 
   View, 
 } from 'react-native';
@@ -85,6 +87,12 @@ const PopCampingCard = ({popCampsite}) => {
   )
   
 }
+// const handleExplore = (e) => {
+//   e.preventDefault();
+//   url = `https://ridb.recreation.gov/api/v1/facilities?query=${query}&limit=5&activity=6,CAMPING`;
+//   const response = axios.get()
+//   this.setState({ displayInfo: true })
+// }
   return (
     <SafeAreaView style={{backgroundColor:'#e4f6f8'}}>
     <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
@@ -105,6 +113,47 @@ const PopCampingCard = ({popCampsite}) => {
         onPress={navigation.goBack}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}/>
     </View>
+
+{/* SEARCH BAR AREA! */}
+    <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{backgroundColor: '#e4f6f8', height:50, paddingHorizontal: 10}}>
+          <View style={{flex:1}}>
+            <Text style={style.headingTitle}>Discover what's out there...</Text>
+            <View style={style.inputContainer}>
+              <Icon name='explore' size={28} margin={3}/>
+              <TextInput
+                  placeholder="Where are you going?"
+                  style={{color: 'black'}}
+                />
+            </View>
+          </View>
+        </View>
+
+      <View>
+      <TouchableOpacity 
+        activeOpacity={0.2} 
+        style={style.goBtn} 
+        onPress={()=> Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+        // onPressIn={this.handleExplore}
+        >
+        <View>
+
+        <Text 
+          style={{
+            color:'ivory', 
+            fontSize: 30, 
+            fontWeight:'bold',
+            fontFamily: 'AmaticSC_700Bold',
+            letterSpacing: 2,
+          }}>Search this area
+
+        </Text> 
+        </View>
+      </TouchableOpacity>
+      </View>
+      </ScrollView>
+
+
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={style.campingStyle}>Camping</Text>
 
@@ -167,6 +216,44 @@ const style = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     padding: 10,
+  },
+  headingTitle: {
+    color: '#0096c7',
+    fontWeight: 'bold',
+    fontFamily: 'AmaticSC_700Bold',
+    fontSize: 40,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    marginTop: 7,
+    textAlign:'center',
+  },
+  inputContainer: {
+    height: 50,
+    width: '100%',
+    backgroundColor: 'ivory',
+    borderWidth: 1,
+    borderRadius: 7,
+    position: 'absolute',
+    top: 70,
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    elevation: 12,
+  },
+  goBtn: {
+    flex: 1,
+    height: 40,
+    width: '100%',
+    backgroundColor: '#0096c7',
+    marginTop:90,
+    marginBottom: -90,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'AmaticSC_700Bold',
   },
 })
 

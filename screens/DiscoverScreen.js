@@ -1,24 +1,33 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StatusBar, StyleSheet, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
+import { 
+  View, 
+  Text, 
+  SafeAreaView, 
+  StatusBar, 
+  StyleSheet, 
+  TextInput, 
+  TouchableOpacity, 
+  ScrollView, 
+  Pressable } from 'react-native';
 // import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Haptics from 'expo-haptics';
-// import { MenuContext,
-//   Menu,
-//   MenuOptions,
-//   MenuOption,
-//   MenuTrigger,
-//   MenuProvider,} from 'react-native-popup-menu';
+import { MenuContext,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,} from 'react-native-popup-menu';
 
 const DiscoverScreen = ({ navigation }) => {
-  const categoryIcons = [
-    <Icon name='directions-car' size={28} color='ivory'/>,
-    <Icons name='hiking' size={28} color='ivory'/>,
-    <Icons name='tent' size={28} color='ivory'/>,
-    <Icon name='hotel' size={28} color='ivory'/>,
+  // const categoryIcons = [
+  //   <Icon name='directions-car' size={28} color='ivory'/>,
+  //   <Icons name='hiking' size={28} color='ivory'/>,
+  //   <Icons name='tent' size={28} color='ivory'/>,
+  //   <Icon name='hotel' size={28} color='ivory'/>,
 
-  ]
+  // ]
   const ListCategories = () => {
     return (
     // <View style={style.categoryContainer}>
@@ -59,7 +68,7 @@ const DiscoverScreen = ({ navigation }) => {
     <SafeAreaView style={{flex: 1, backgroundColor: '#e4f6f8'}}>
       <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
       <View style={style.heading}>
-      {/* <MenuProvider style={style.menuContainer}>
+      <MenuProvider style={style.menuContainer}>
         <View >
           <Menu>
             <MenuTrigger>
@@ -72,7 +81,7 @@ const DiscoverScreen = ({ navigation }) => {
             </MenuOptions>
           </Menu>
           </View>
-          </MenuProvider> */}
+          </MenuProvider>
         <Pressable 
           onPress={()=>navigation.navigate('Profile')}
           onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
@@ -107,7 +116,10 @@ const DiscoverScreen = ({ navigation }) => {
         </View>
 
       <View>
-      <TouchableOpacity activeOpacity={0.2} style={style.goBtn} onPress={()=> Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+      <TouchableOpacity 
+        activeOpacity={0.2}  
+        style={style.goBtn} 
+        onPress={()=> Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
         <View>
         <Text 
           style={{
@@ -116,8 +128,8 @@ const DiscoverScreen = ({ navigation }) => {
             fontWeight:'bold',
             fontFamily: 'AmaticSC_700Bold',
             letterSpacing: 2,
-  
           }}>Search this area
+
         </Text> 
         </View>
       </TouchableOpacity>
