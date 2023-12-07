@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Dimensions, 
   FlatList, 
@@ -18,34 +18,54 @@ const {width} = Dimensions.get('screen');
 import camping from '../constants/camping';
 import popCamping from '../constants/popCamping';
 import * as Haptics from 'expo-haptics';
+import { getCampgrounds } from '../api_Modules/campingdb';
 
 const CampingScreen = ({navigation}) => {
+  const [campgrounds, setCampgrounds] = useState([]);
 
+  useEffect(() => {
+    const fetchCampgrounds = async () => {
+      try {
+        const data = await getCampgrounds('Seattle');
+        console.log(data);
+        setCampgrounds(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchCampgrounds();
+  }, []);
 
 const CampingCard = ({campsite}) => {
   return (
-    <TouchableOpacity 
-      activeOpacity={0.8} 
-      onPress={()=>navigation.navigate('CampingDetails', campsite)}
-      onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-      <ImageBackground source={campsite.image} style={style.cardImage}>
-        <Text style={{
-          color:'ivory',
-          fontSize:20,
-          fontWeight:'bold',
-        }}>
-          {campsite.name}
-        </Text>
-        <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Icon name='place' size={20} color='ivory'/>
-            <Text style={{marginLeft: 5, color:'ivory'}}>
-              {campsite.location}
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
-    </TouchableOpacity>
+    // <TouchableOpacity 
+    //   activeOpacity={0.8} 
+    //   onPress={()=>navigation.navigate('CampingDetails', campsite)}
+    //   onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+      // <ImageBackground source={campsite.image} style={style.cardImage}>
+      //   <Text style={{
+      //     color:'ivory',
+      //     fontSize:20,
+      //     fontWeight:'bold',
+      //   }}>
+      //     {campsite.name}
+      //   </Text>
+      //   <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
+      //     <View style={{flexDirection: 'row'}}>
+      //       <Icon name='place' size={20} color='ivory'/>
+      //       <Text style={{marginLeft: 5, color:'ivory'}}>
+      //         {campsite.location}
+      //       </Text>
+      //     </View>
+      //   </View>
+      // </ImageBackground>
+    // </TouchableOpacity>
+    <View>
+      <Text>Campgrounds List</Text>
+      {campgrounds.map(campground => (
+        <Text key={campground.site}>{campground.site}</Text>
+      ))}
+    </View>
   )
 }
 const PopCampingCard = ({popCampsite}) => {
