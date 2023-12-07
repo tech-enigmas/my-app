@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { 
   Dimensions, 
   FlatList, 
@@ -21,6 +20,7 @@ import popCamping from '../constants/popCamping';
 import * as Haptics from 'expo-haptics';
 
 const CampingScreen = ({navigation}) => {
+
 
 const CampingCard = ({campsite}) => {
   return (
