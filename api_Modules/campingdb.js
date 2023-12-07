@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 export const getCampgrounds = async (query) => {
-const campingUrl = 'http://localhost:3001/camping?query=moab';
+const campingUrl = 'http://localhost:3001/camping?query=seattle';
 
   try {
     const response = await axios.get(

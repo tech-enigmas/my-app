@@ -26,7 +26,7 @@ const CampingScreen = ({navigation}) => {
   useEffect(() => {
     const fetchCampgrounds = async () => {
       try {
-        const data = await getCampgrounds('Seattle');
+        const data = await getCampgrounds();
         console.log(data);
         setCampgrounds(data);
       } catch (error) {
@@ -38,11 +38,14 @@ const CampingScreen = ({navigation}) => {
 
 const CampingCard = ({campsite}) => {
   return (
+
+
+ 
     // <TouchableOpacity 
     //   activeOpacity={0.8} 
     //   onPress={()=>navigation.navigate('CampingDetails', campsite)}
     //   onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-      // <ImageBackground source={campsite.image} style={style.cardImage}>
+      // <ImageBackground source={campsite.img} style={style.cardImage}>
       //   <Text style={{
       //     color:'ivory',
       //     fontSize:20,
@@ -54,11 +57,12 @@ const CampingCard = ({campsite}) => {
       //     <View style={{flexDirection: 'row'}}>
       //       <Icon name='place' size={20} color='ivory'/>
       //       <Text style={{marginLeft: 5, color:'ivory'}}>
-      //         {campsite.location}
+      //         {campsite.site}
       //       </Text>
       //     </View>
       //   </View>
       // </ImageBackground>
+
     // </TouchableOpacity>
     <View>
       <Text>Campgrounds List</Text>
