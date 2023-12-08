@@ -2,14 +2,14 @@ import axios from 'axios';
 
 export const getAirbnb = async (query) => {
 
-    const airBnbUrl = 'https://airbnb13.p.rapidapi.com/search-location'
-
+    const airBnbUrl = 'http://localhost:3001/airbnb'
+console.log(process.env.EXPO_PUBLIC_AIRBNB_API_KEY);
 try {
     const response = await axios.get(
         airBnbUrl
     );
     return response.data;
-    
+
 } catch (error) {
     console.error('Error fetching airbnbs', error);
     throw error;
