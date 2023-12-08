@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
   Dimensions, 
   FlatList, 
@@ -25,7 +25,7 @@ const [airbnb, setAirbnb] = useState([]);
 useEffect(() => {
   const fetchAirbnb = async () => {
     try {
-      const data = await getAirbnb();
+      const data = await getAirbnb([]);
       setAirbnb(data);
     } catch (error) {
       console.error('Error:', error);
