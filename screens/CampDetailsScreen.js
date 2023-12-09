@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Haptics from 'expo-haptics';
 
 const CampDetailsScreen = ({navigation, route}) => {
-  const campsite = route.params;
+  const campground = route.params;
   const [isFav, setFav] = useState();
   const [modal, setModal] = useState(false);
   const [tripModal, setTripModal] = useState(false);
@@ -31,7 +31,7 @@ const CampDetailsScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={{flex:1, backgroundColor:'#e4f6f8'}}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
-      <ImageBackground style={{flex:0.7}} source={campsite.image}>
+      <ImageBackground style={{flex:0.7}} source={campground.image[0] ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
         <View style={style.imageHeading}>
           <Icon 
             name='arrow-back-ios' 
@@ -48,11 +48,11 @@ const CampDetailsScreen = ({navigation, route}) => {
             color:'ivory',
             marginBottom: 20
           }}>
-          {campsite.name}
+          {campground.site}
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Icon name='star' size={30} color='gold'/>
-            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>{campsite.rating}</Text>
+            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>{campground.rating}</Text>
           </View>
         </View>
       </ImageBackground>
@@ -90,14 +90,14 @@ const CampDetailsScreen = ({navigation, route}) => {
               fontWeight:'bold',
               color:'#0096c7',
             }}>
-            {campsite.location}
+            {campground.site}
           </Text>
         </View>
         <Text style={{marginTop:20, fontWeight:'bold', fontSize:45, fontFamily: 'AmaticSC_700Bold' }}>
           Campsite Details
         </Text>
-        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>${campsite.price}</Text>
-        <Text style={{marginTop: 20, lineHeight:22}}>{campsite.details}</Text>
+        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>${campground.fee}</Text>
+        <Text style={{marginTop: 20, lineHeight:22}}>{campground.description}</Text>
       </View>
       <View style={style.footer}>
       <View style={style.addToTripBtn}>
