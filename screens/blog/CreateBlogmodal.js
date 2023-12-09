@@ -190,4 +190,4 @@ const style = StyleSheet.create({
   },
 })
 
-export default BlogScreen
+// export default BlogScreen
