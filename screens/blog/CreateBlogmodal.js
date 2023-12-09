@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   Text,
   Alert,
-  FlatList,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -21,8 +20,6 @@ import {
   MenuTrigger,
   MenuProvider,
 } from 'react-native-popup-menu';
-import Collapsible from 'react-native-collapsible';
-
 
 
 
@@ -31,23 +28,6 @@ const BlogScreen = ({ navigation }) => {
   const [blog, setBlog] = useState([]);
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
-  const [expanded, setExpanded] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch blogs from your backend
-    fetch('http://localhost:3001/posts') // Update with your backend API endpoint
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setBlog(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching blogs:', error);
-        setLoading(false);
-      });
-  }, []);
 
   const saveBlog = async () => {
     if (title.trim() === '' || details.trim() === '') {
@@ -68,13 +48,13 @@ const BlogScreen = ({ navigation }) => {
 
     try {
       const response = await fetch('http://localhost:3001/posts'
-        , {    //  <------ put the server here
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(blogPost),
-        });
+, {    //  <------ put the server here
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(blogPost),
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -89,13 +69,6 @@ const BlogScreen = ({ navigation }) => {
     setTitle('');
     setDetails('');
   }
-
-  const toggleExpand = (id) => {
-    setExpanded((prevExpanded) => ({
-      ...prevExpanded,
-      [id]: !prevExpanded[id],
-    }));
-  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#e4f6f8' }}>
@@ -122,25 +95,6 @@ const BlogScreen = ({ navigation }) => {
         </View>
 
         <View>
-      <Text style={style.header}>List of Blogs</Text>
-      <FlatList
-        data={blog}
-        keyExtractor={(item) => item._id.toString()} 
-        renderItem={({ item }) => (
-          <View style={style.blogItem}>
-            <TouchableOpacity onPress={() => toggleExpand(item._id)}>
-              <Text style={style.title}>{item.title}</Text>
-            </TouchableOpacity>
-            <Collapsible collapsed={!expanded[item._id]}>
-              <Text style={style.details}>{item.body}</Text>
-            </Collapsible>
-          </View>
-        )}
-      />
-    </View>
-
-
-        <View>
           <TextInput
             style={style.input}
             onChangeText={(text) => setTitle(text)}
@@ -161,7 +115,7 @@ const BlogScreen = ({ navigation }) => {
 
           <TouchableOpacity
             style={style.button}
-            onPress={saveBlog}
+          onPress={saveBlog}
           >
             <Text style={style.buttonText}>Save Blog</Text>
           </TouchableOpacity>
@@ -236,4 +190,4 @@ const style = StyleSheet.create({
   },
 })
 
-export default BlogScreen
+// export default BlogScreen
