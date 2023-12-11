@@ -1,36 +1,36 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, StatusBar, ImageBackground, TouchableOpacity, Pressable, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import DatePicker from "react-native-modern-datepicker";
 // import { getFormatedDate } from "react-native-modern-datepicker";
 import * as Haptics from 'expo-haptics';
+import TripContext from '../context/ProfileContext';
 
 const CampDetailsScreen = ({navigation, route}) => {
   const campground = route.params;
   const [isFav, setFav] = useState();
   const [modal, setModal] = useState(false);
   const [tripModal, setTripModal] = useState(false);
+  const {trips, setTrips} = useContext(TripContext);
 
-  // const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
-  // const today = new Date();
-  // const startDate = getFormatedDate(
-  //   today.setDate(today.getDate() + 1),
-  //   "YYYY/MM/DD"
-  // );
-  // const [selectedStartDate, setSelectedStartDate] = useState("");
-  // const [startedDate, setStartedDate] = useState("12/12/2023");
-
-  // function handleChangeStartDate(propDate) {
-  //   setStartedDate(propDate);
-  // }
-
-  // const handleOnPressStartDate = () => {
-  //   setOpenStartDatePicker(!openStartDatePicker);
-  // };
-
+  const addToTrip = () => {
+    setTrips((prevTrips) => [...prevTrips, campground]);
+    setTripModal(true);
+  }
   return (
     <SafeAreaView style={{flex:1, backgroundColor:'#e4f6f8'}}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
+
+          {/* PROFILE LINK! */}
+    <View style={style.heading}>
+      <Icon name='menu' size={28} color='#0096c7'/>
+      <Pressable 
+        onPress={()=>navigation.navigate('Profile')}
+        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+        <Icon name='person' size={28} color='#0096c7'/>
+      </Pressable>
+    </View>
+
       <ImageBackground style={{flex:0.7}} source={campground.image[0] ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
         <View style={style.imageHeading}>
           <Icon 
@@ -52,7 +52,7 @@ const CampDetailsScreen = ({navigation, route}) => {
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Icon name='star' size={30} color='gold'/>
-            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>{campground.rating}</Text>
+            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>5.0</Text>
           </View>
         </View>
       </ImageBackground>
@@ -96,7 +96,7 @@ const CampDetailsScreen = ({navigation, route}) => {
         <Text style={{marginTop:20, fontWeight:'bold', fontSize:45, fontFamily: 'AmaticSC_700Bold' }}>
           Campsite Details
         </Text>
-        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>${campground.fee}</Text>
+        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>Fee:{campground?.fee ? campground.fee : ' FREE'}</Text>
         <Text style={{marginTop: 20, lineHeight:22}}>{campground.description}</Text>
       </View>
       <View style={style.footer}>
@@ -114,55 +114,20 @@ const CampDetailsScreen = ({navigation, route}) => {
             <Text style={style.modalText}>Added to your trips!</Text>
             <Pressable
               style={[style.button, style.buttonClose]}
-              onPress={() => setTripModal(!tripModal)}>
+              onPress={() => setTripModal(!tripModal)}
+              onPressIn={() => addToTrip()}>
               <Icon name='thumb-up' color='ivory'/>
             </Pressable>
           </View>
         </View>
         </Modal>
         <View>
-          {/* <View>
-            <Text>Check Availability</Text>
-            <TouchableOpacity onPress={handleOnPressStartDate}>
-              <Text>
-                {selectedStartDate}
-              </Text>
-            </TouchableOpacity>
-          </View> */}
 
-          {/* <Modal
-            animationType="slide"
-            transparent={true}
-            visible={openStartDatePicker}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <DatePicker
-                  mode="calendar"
-                  minimumDate={startDate}
-                  selected={startedDate}
-                  onDateChanged={handleChangeStartDate}
-                  onSelectedChange={(date) => setSelectedStartDate(date)}
-                  options={{
-                    backgroundColor: "#080516",
-                    textHeaderColor: "#469ab6",
-                    textDefaultColor: "#FFFFFF",
-                    selectedTextColor: "#FFF",
-                    mainColor: "#469ab6",
-                    textSecondaryColor: "#FFFFFF",
-                    borderColor: "rgba(122, 146, 165, 0.1)",
-                  }}
-                />
-
-                <TouchableOpacity onPress={handleOnPressStartDate}>
-                  <Text style={{ color: "white" }}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal> */}
 
         </View>
-          <Pressable activeOpacity={0.2} onPressIn={()=>setTripModal(true)}>
+          <Pressable activeOpacity={0.2} 
+            onPressIn={()=>setTripModal(true)
+            }>
             <Text 
               style={{
                 color:'#0096c7', 
@@ -182,6 +147,13 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     paddingHorizontal:20,
+  },
+  heading: {
+    paddingVertical: 10, 
+    paddingHorizontal: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#e4f6f8',
   },
   imageHeading: {
     marginTop:30,

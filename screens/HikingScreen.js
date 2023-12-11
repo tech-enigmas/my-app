@@ -25,6 +25,7 @@ import { MenuContext,
   MenuTrigger,
   MenuProvider,} from 'react-native-popup-menu';
 
+
 const HikingScreen = ({navigation}) => {
 
 const TrailCard = ({trail}) => {

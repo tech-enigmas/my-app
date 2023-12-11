@@ -9,11 +9,11 @@ import {
   TouchableOpacity, 
   ScrollView, 
   Pressable } from 'react-native';
-// import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as Haptics from 'expo-haptics';
-import { MenuContext,
+import ListCategories from './ListCategories'
+import { 
   Menu,
   MenuOptions,
   MenuOption,
@@ -21,47 +21,32 @@ import { MenuContext,
   MenuProvider,} from 'react-native-popup-menu';
 
 const DiscoverScreen = ({ navigation }) => {
-  // const categoryIcons = [
-  //   <Icon name='directions-car' size={28} color='ivory'/>,
-  //   <Icons name='hiking' size={28} color='ivory'/>,
-  //   <Icons name='tent' size={28} color='ivory'/>,
-  //   <Icon name='hotel' size={28} color='ivory'/>,
 
-  // ]
   const ListCategories = () => {
     return (
-    // <View style={style.categoryContainer}>
-    //   {categoryIcons.map((icon, index)=>(
-    //   <View key={index} style={style.iconContainer}>
-    //     <TouchableOpacity onPress={()=> navigation.navigate('Hiking')}>
-    //     {icon}
-    //     </TouchableOpacity>
-    //   </View>
-    //   ))}
-    // </View>
-    <View style={style.categoryContainer}>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate('Hiking')} 
-        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-        <View style={style.iconContainer}>
-        <Icons name='hiking' size={28} color='ivory'/>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate('Camping')} 
-        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-        <View style={style.iconContainer}>
-        <Icons name='tent' size={28} color='ivory'/>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate('Airbnb')} 
-        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-        <View style={style.iconContainer}>
-        <Icon name='hotel' size={28} color='ivory'/>
-        </View>
-      </TouchableOpacity>
-    </View>
+      <View style={style.categoryContainer}>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Hiking')} 
+          onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+          <View style={style.iconContainer}>
+          <Icons name='hiking' size={28} color='ivory'/>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Camping')} 
+          onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+          <View style={style.iconContainer}>
+          <Icons name='tent' size={28} color='ivory'/>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Airbnb')} 
+          onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+          <View style={style.iconContainer}>
+          <Icon name='hotel' size={28} color='ivory'/>
+          </View>
+        </TouchableOpacity>
+      </View>
     )
   }
   return (
@@ -102,7 +87,10 @@ const DiscoverScreen = ({ navigation }) => {
 
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{backgroundColor: '#e4f6f8', height:50, paddingHorizontal: 10}}>
+        <View style={{
+          backgroundColor: '#e4f6f8', 
+          height:50, 
+          paddingHorizontal: 10}}>
           <View style={{flex:1}}>
             <Text style={style.headingTitle}>Discover what's out there...</Text>
             <View style={style.inputContainer}>

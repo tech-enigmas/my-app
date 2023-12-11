@@ -177,3 +177,63 @@ const handleExplore = (e) => {
 
 
   const campingUrl = `http://localhost:3001/camping?query=${query}`;
+          {/* <View>
+            <Text>Check Availability</Text>
+            <TouchableOpacity onPress={handleOnPressStartDate}>
+              <Text>
+                {selectedStartDate}
+              </Text>
+            </TouchableOpacity>
+          </View> */}
+
+          {/* <Modal
+            animationType="slide"
+            transparent={true}
+            visible={openStartDatePicker}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <DatePicker
+                  mode="calendar"
+                  minimumDate={startDate}
+                  selected={startedDate}
+                  onDateChanged={handleChangeStartDate}
+                  onSelectedChange={(date) => setSelectedStartDate(date)}
+                  options={{
+                    backgroundColor: "#080516",
+                    textHeaderColor: "#469ab6",
+                    textDefaultColor: "#FFFFFF",
+                    selectedTextColor: "#FFF",
+                    mainColor: "#469ab6",
+                    textSecondaryColor: "#FFFFFF",
+                    borderColor: "rgba(122, 146, 165, 0.1)",
+                  }}
+                />
+
+                <TouchableOpacity onPress={handleOnPressStartDate}>
+                  <Text style={{ color: "white" }}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal> */}
+
+
+    !!! FOR THE CAMPING DETAILS PAGE !!!
+
+
+  // const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
+  // const today = new Date();
+  // const startDate = getFormatedDate(
+  //   today.setDate(today.getDate() + 1),
+  //   "YYYY/MM/DD"
+  // );
+  // const [selectedStartDate, setSelectedStartDate] = useState("");
+  // const [startedDate, setStartedDate] = useState("12/12/2023");
+
+  // function handleChangeStartDate(propDate) {
+  //   setStartedDate(propDate);
+  // }
+
+  // const handleOnPressStartDate = () => {
+  //   setOpenStartDatePicker(!openStartDatePicker);
+  // };

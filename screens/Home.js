@@ -24,6 +24,7 @@ import { MenuContext,
   MenuTrigger,
   MenuProvider,} from 'react-native-popup-menu';
 
+
 const Home = ({navigation})  => {
   // const [fontsLoaded] = useFonts({
   //   AmaticSC_700Bold,

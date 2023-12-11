@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
@@ -11,12 +11,15 @@ import CampDetailsScreen from './screens/CampDetailsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AirbnbScreen from './screens/AirbnbScreen';
 import BlogScreen from './screens/BlogScreen';
-
+import TripContext from './context/ProfileContext';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [trips, setTrips] = useState([]);
+
   return (
+    <TripContext.Provider value={{ trips, setTrips }}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home} />
@@ -30,6 +33,7 @@ const App = () => {
         <Stack.Screen name="Blog" component={BlogScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </TripContext.Provider>
   );
 };
 
