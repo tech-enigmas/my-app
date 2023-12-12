@@ -17,7 +17,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const {width} = Dimensions.get('screen');
 import * as Haptics from 'expo-haptics';
 import { getCampgrounds } from '../api_Modules/campingdb';
-
+import CampingCard from './CampingCard';
+import { 
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  MenuProvider,} from 'react-native-popup-menu';
 
 const CampingScreen = ({navigation}) => {
   const [campgrounds, setCampgrounds] = useState([]);
@@ -25,62 +31,37 @@ const CampingScreen = ({navigation}) => {
 
   const fetchCampgrounds = async () => {
     try {
-      console.log('asdglghgdslkn', searchCity)
       const data = await getCampgrounds(searchCity);
       console.log(data);
       setCampgrounds(data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
-  };
+  }
 
   const handleExplore = () => {
     getCampgrounds();
   }
 
-const CampingCard = ({campground}) => {
-
-  if(!campground) return <></>
   return (
-
-    <View>
-      <TouchableOpacity 
-      activeOpacity={0.8} 
-      onPress={()=>navigation.navigate('CampingDetails', campground)}
-      onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-        <View key={campground.site}>
-          <ImageBackground source={campground?.image?.[0]?.URL ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
-          <Text style={{
-            color: 'ivory',
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}>
-            {campground.site}
-          </Text>
-         
-          <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end' }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Icon name='place' size={20} color='ivory' />
-              <Text style={{ marginLeft: 5, color: 'ivory' }}>
-                {campground.site}
-              </Text>
-            </View>
-          </View>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
-      
-    </View>
-  )
-}
-
-  return (
-    <SafeAreaView style={{backgroundColor:'#e4f6f8'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor:'#e4f6f8'}}>
     <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
-    
     {/* PROFILE LINK! */}
-    <View style={style.heading}>
-      <Icon name='menu' size={28} color='#0096c7'/>
+    <View style={style.heading}>     
+    <MenuProvider style={style.menuContainer}>
+        <View >
+          <Menu>
+            <MenuTrigger>
+              <Icon name='menu' size={28} color='#0096c7'/>
+            </MenuTrigger>
+            <MenuOptions>
+              <MenuOption onSelect={() => navigation.navigate('Discover')} text='Explore'/>
+              <MenuOption onSelect={() => navigation.navigate('Hiking')} text='Hiking'/>
+              <MenuOption onSelect={() => navigation.navigate('Camping')} text='Camping'/>
+            </MenuOptions>
+          </Menu>
+          </View>
+          </MenuProvider>
       <Pressable 
         onPress={()=>navigation.navigate('Profile')}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
@@ -92,14 +73,20 @@ const CampingCard = ({campground}) => {
     <View style={style.backArrow}>
       <Icon 
         name='arrow-back-ios' 
-        size={28} color='#0096c7' 
+        size={28} 
+        olor='#0096c7' 
         onPress={navigation.goBack}
-        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}/>
+        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+        />
     </View>
 
     {/* SEARCH BAR AREA! */}
     <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{backgroundColor: '#e4f6f8', height:50, paddingHorizontal: 10}}>
+        <View style={{
+          backgroundColor: '#e4f6f8', 
+          height:50, 
+          paddingHorizontal: 10,
+          }}>
           <View style={{flex:1}}>
             <Text style={style.headingTitle}>Discover what's out there...</Text>
             <View style={style.inputContainer}>
@@ -173,7 +160,7 @@ const style = StyleSheet.create({
   },
   campingStyle:{
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 120,
     fontWeight: 'bold',
     fontSize: 50,
     fontFamily: 'AmaticSC_700Bold',
@@ -215,6 +202,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     elevation: 12,
+    marginBottom:10
   },
   goBtn: {
     flex: 1,

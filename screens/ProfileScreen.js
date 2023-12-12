@@ -1,16 +1,22 @@
-import React, { createContext, useState } from 'react'
-import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
+import React, { createContext, useEffect, useState, useContext } from 'react'
+import {SafeAreaView, Text, View, StyleSheet, useColorScheme} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Haptics from 'expo-haptics';
+import TripContext from '../context/ProfileContext';
+import TripsCampCard from './TripsCampCard';
 
-const Favorites = createContext();
+// const Favorites = createContext();
 
 const ProfileScreen = ({navigation}) => {
+  // const [trip, setTrip ] = useState({});
+  // const [error, setError ] = useState('');
+  const { trips } = useContext(TripContext);
+  console.log(trips);
 
 
-const TripsCampCard = ({trail, campsite}) => {
-  return
-}
+// const TripsCampCard = ({airbnbItem, campground}) => {
+//   return
+// }
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#e4f6f8'}}>
         <View style={style.heading}>
@@ -25,6 +31,7 @@ const TripsCampCard = ({trail, campsite}) => {
         </View>
       <View>
       <Text style={style.tripsStyle}>Your Trips</Text>
+        <TripsCampCard/>
       </View>
       <View>
       <Text style={style.tripsStyle}>Your Favorites</Text>
