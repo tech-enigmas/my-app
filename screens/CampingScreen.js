@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const {width} = Dimensions.get('screen');
 import * as Haptics from 'expo-haptics';
 import { getCampgrounds } from '../api_Modules/campingdb';
-import CampingCard from './CampingCard';
+// import CampingCard from './CampingCard';
 import { 
   Menu,
   MenuOptions,
@@ -42,6 +42,43 @@ const CampingScreen = ({navigation}) => {
   const handleExplore = () => {
     getCampgrounds();
   }
+
+
+const CampingCard = ({campground}) => {
+
+  if(!campground) return <></>
+  return (
+
+    <View>
+      <TouchableOpacity 
+      activeOpacity={0.8} 
+      onPress={()=>navigation.navigate('CampingDetails', campground)}
+      onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+        <View key={campground.site}>
+          <ImageBackground source={campground?.image?.[0]?.URL ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
+          <Text style={{
+            color: 'ivory',
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}>
+            {campground.site}
+          </Text>
+         
+          <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end' }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Icon name='place' size={20} color='ivory' />
+              <Text style={{ marginLeft: 5, color: 'ivory' }}>
+                {campground.site}
+              </Text>
+            </View>
+          </View>
+          </ImageBackground>
+        </View>
+      </TouchableOpacity>
+      
+    </View>
+  )
+}
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor:'#e4f6f8'}}>

@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const {width} = Dimensions.get('screen');
 
 
-const CampingCard = ({campground}) => {
+const CampingCard = ({navigation, campground}) => {
 
   if(!campground) return <></>
   return (
