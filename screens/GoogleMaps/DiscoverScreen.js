@@ -104,7 +104,7 @@ const DiscoverScreen = ({ navigation }) => {
 
 
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      {/* <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ backgroundColor: '#e4f6f8', height: 50, paddingHorizontal: 10 }}>
           <View style={{ flex: 1 }}>
             <Text style={style.headingTitle}>Discover what's out there...</Text>
@@ -137,7 +137,7 @@ const DiscoverScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </ScrollView> */}
       <GoogleMapsNative />
       <ListCategories />
 
