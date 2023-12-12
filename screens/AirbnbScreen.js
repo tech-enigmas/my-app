@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { 
   Dimensions, 
   FlatList, 
@@ -17,33 +17,53 @@ const {width} = Dimensions.get('screen');
 import airbnb from '../constants/airbnb';
 import popAirbnb from '../constants/popAirbnb';
 import * as Haptics from 'expo-haptics';
+import { getAirbnb  } from '../api_Modules/airbnbModule';
 
 const AirbnbScreen = ({navigation}) => {
+const [airbnb, setAirbnb] = useState([]);
+
+useEffect(() => {
+  const fetchAirbnb = async () => {
+    try {
+      const data = await getAirbnb([]);
+      setAirbnb(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchAirbnb();
+}, []);
 
 const AirbnbCard = ({bnb}) => {
   return (
-    <TouchableOpacity 
-      activeOpacity={0.8}
-      onPress={()=>navigation.navigate('BnbDetails', bnb)}
-      onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-    <ImageBackground source={bnb.image} style={style.cardImage}>
-        <Text style={{
-          color:'ivory',
-          fontSize:20,
-          fontWeight:'bold',
-        }}>
-        {bnb.name}
-      </Text>
-      <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Icon name='place' size={20} color='ivory'/>
-            <Text style={{marginLeft: 5, color:'ivory'}}>
-              {bnb.location}
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
-    </TouchableOpacity>
+    // <TouchableOpacity 
+    //   activeOpacity={0.8}
+    //   onPress={()=>navigation.navigate('BnbDetails', bnb)}
+    //   onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+    // <ImageBackground source={bnb.image} style={style.cardImage}>
+    //     <Text style={{
+    //       color:'ivory',
+    //       fontSize:20,
+    //       fontWeight:'bold',
+    //     }}>
+    //     {bnb.name}
+    //   </Text>
+    //   <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
+    //       <View style={{flexDirection: 'row'}}>
+    //         <Icon name='place' size={20} color='ivory'/>
+    //         <Text style={{marginLeft: 5, color:'ivory'}}>
+    //           {bnb.location}
+    //         </Text>
+    //       </View>
+    //     </View>
+    //   </ImageBackground>
+    // </TouchableOpacity>
+    <View>
+      <Text>Airbnb List</Text>
+      {airbnb.map(airbnb => (
+        <Text key={airbnb.name}>{airbnb.name}</Text>
+      ))}
+    </View>
   )
 }
 
@@ -104,6 +124,8 @@ const PopAirbnbCard = ({popAirbnb}) => {
         onPress={navigation.goBack}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}/>
     </View>
+    
+    
     <ScrollView showsVerticalScrollIndicator={false}>
       <Text style={style.bnbStyle}>Airbnb</Text>
 

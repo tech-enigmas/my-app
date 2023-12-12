@@ -13,6 +13,7 @@ import AirbnbScreen from './screens/AirbnbScreen';
 import BlogScreen from './screens/BlogScreen';
 import TripContext from './context/ProfileContext';
 
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
