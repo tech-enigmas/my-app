@@ -10,7 +10,7 @@ import CampingScreen from './screens/CampingScreen';
 import CampDetailsScreen from './screens/CampDetailsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AirbnbScreen from './screens/AirbnbScreen';
-import BlogScreen from './screens/BlogScreen';
+import BlogScreen from './screens/blog/BlogScreen';
 import TripContext from './context/ProfileContext';
 
 
