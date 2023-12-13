@@ -11,6 +11,8 @@ import {
   Alert,
   FlatList,
 } from 'react-native';
+import * as Haptics from 'expo-haptics';
+
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -27,23 +29,23 @@ import Collapsible from 'react-native-collapsible';
 
 
 const BlogScreen = ({ navigation }) => {
-
   const [blog, setBlog] = useState([]);
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [expanded, setExpanded] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/posts') // Update with API endpoint EXPO_PUBLIC_SERVER?
+    fetch('http://localhost:3001/posts')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setBlog(data);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching blogs:', error);
+        setError('Failed to fetch blogs. Please try again.');
         setLoading(false);
       });
   }, []);
@@ -66,28 +68,31 @@ const BlogScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/posts'
-        , {    //  <------ put the server here
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(blogPost),
-        });
-      const data = await response.json();
+      const response = await fetch('http://localhost:3001/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(blogPost),
+      });
 
       if (response.ok) {
+        const data = await response.json();
         console.log('Blog saved successfully:', data);
+
+        // Optimistic UI update: Add the new blog to the state
+        setBlog([...blog, data]);
+
+        // Clear input fields
+        setTitle('');
+        setDetails('');
       } else {
         console.error('Failed to save blog:', data.error);
       }
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
     }
-
-    setTitle('');
-    setDetails('');
-  }
+  };
 
   const toggleExpand = (id) => {
     setExpanded((prevExpanded) => ({
@@ -97,76 +102,57 @@ const BlogScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#e4f6f8' }}>
-      <StatusBar translucent backgroundColor='#e4f6f8' />
-      <MenuProvider style={style.menuContainer}>
-        <View style={style.heading}>
-          <Menu>
-            <MenuTrigger>
-              <Icon name='menu' size={28} color='#0096c7' />
-            </MenuTrigger>
-            <MenuOptions>
-              <MenuOption onSelect={() => navigation.navigate('Home')} text='Home' />
-              <MenuOption onSelect={() => navigation.navigate('Discover')} text='Explore' />
-              <MenuOption onSelect={() => navigation.navigate('Hiking')} text='Hiking' />
-              <MenuOption onSelect={() => navigation.navigate('Camping')} text='Camping' />
-              <MenuOption onSelect={() => navigation.navigate('Airbnb')} text='Airbnb' />
-            </MenuOptions>
-          </Menu>
-          <Pressable
-            onPress={() => navigation.navigate('Profile')}
-            onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-            <Icon name='person' size={28} color='#0096c7' />
-          </Pressable>
-        </View>
+    <SafeAreaView style={style.container}>
+      <View style={style.headerContainer}>
+        <Text style={style.header}>List of Blogs</Text>
+      </View>
 
-        <View>
-      <Text style={style.header}>List of Blogs</Text>
-      <FlatList
-        data={blog}
-        keyExtractor={(item) => item._id.toString()} 
-        renderItem={({ item }) => (
-          <View style={style.blogItem}>
-            <TouchableOpacity onPress={() => toggleExpand(item._id)}>
-              <Text style={style.title}>{item.title}</Text>
-            </TouchableOpacity>
-            <Collapsible collapsed={!expanded[item._id]}>
-              <Text style={style.details}>{item.body}</Text>
-            </Collapsible>
-          </View>
-        )}
-      />
-    </View>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : error ? (
+        <Text style={style.errorText}>{error}</Text>
+      ) : (
+        <FlatList
+          data={blog}
+          keyExtractor={(item) => item._id.toString()}
+          renderItem={({ item }) => (
+            <View style={style.blogItem}>
+              <TouchableOpacity onPress={() => toggleExpand(item._id)}>
+                <Text style={style.title}>{item.title}</Text>
+              </TouchableOpacity>
+              <Collapsible collapsed={!expanded[item._id]}>
+                <Text style={style.details}>{item.body}</Text>
+              </Collapsible>
+            </View>
+          )}
+        />
+      )}
 
+      <View style={style.inputContainer}>
 
-        <View>
-          <TextInput
-            style={style.input}
-            onChangeText={(text) => setTitle(text)}
-            value={title}
-            placeholder="Blog Title"
-          />
+        <TextInput
+          style={style.input}
+          onChangeText={(text) => setTitle(text)}
+          value={setTitle}
+          placeholder="Blog Title"
+        />
 
-          <TextInput
-            editable
-            multiline
-            numberOfLines={16}
-            maxLength={2500}
-            onChangeText={(text) => setDetails(text)}
-            value={details}
-            style={style.blogDetails}
-            placeholder="Blog about your trip..."
-          />
+        <TextInput
+          editable
+          multiline
+          numberOfLines={20}
+          maxLength={5000}
+          onChangeText={(text) => setDetails(text)}
+          value={setDetails}
+          style={style.blogDetails}
+          placeholder="Blog about your trip..."
+        />
 
-          <TouchableOpacity
-            style={style.button}
-            onPress={saveBlog}
-          >
-            <Text style={style.buttonText}>Save Blog</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={style.button} onPress={saveBlog}>
+          <Text style={style.buttonText}>Save Blog</Text>
+        </TouchableOpacity>
+      </View>
 
-      </MenuProvider>
       <View style={style.backArrow}>
         <Icon
           name='arrow-back-ios'
@@ -176,28 +162,42 @@ const BlogScreen = ({ navigation }) => {
           onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
         />
       </View>
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     backgroundColor: '#e4f6f8',
   },
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  heading: {
+  headerContainer: {
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    paddingHorizontal: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#e4f6f8',
+    backgroundColor: '#409c9b',
+  },
+  header: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  blogItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#0096c7',
+  },
+  details: {
+    fontSize: 16,
+    color: 'black',
+  },
+  inputContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   input: {
     height: 40,
@@ -208,12 +208,13 @@ const style = StyleSheet.create({
     padding: 10,
   },
   blogDetails: {
-    height: 500,
+    height: 120,
     marginVertical: 10,
     borderWidth: 1,
     borderColor: '#f294f2',
     borderRadius: 8,
     padding: 10,
+    textAlignVertical: 'top',
   },
   button: {
     backgroundColor: '#409c9b',
@@ -221,6 +222,12 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 8,
     marginVertical: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   backArrow: {
     marginTop: 10,
@@ -229,10 +236,12 @@ const style = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 20,
   },
-  menuContainer: {
-    flex: 1,
-    margin: 10,
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 10,
   },
-})
+});
 
-export default BlogScreen
+export default BlogScreen;
