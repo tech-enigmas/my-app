@@ -35,7 +35,7 @@ const BlogScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3001/posts') // Update with API endpoint EXPO_PUBLIC_SERVER?
+    fetch('https://nomad-backend-ga8z.onrender.com/posts') // Update with API endpoint EXPO_PUBLIC_SERVER?
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -66,7 +66,7 @@ const BlogScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/posts'
+      const response = await fetch('https://nomad-backend-ga8z.onrender.com/posts'
         , {    //  <------ put the server here
           method: 'POST',
           headers: {

@@ -2,8 +2,7 @@
 import axios from 'axios';
 
 export const getCampgrounds = async (query) => {
-  const campingUrl = `http://localhost:3001/camping?query=${query}`;
-  // const campingUrl = 'http://localhost:3001/camping?query=seattle';
+  const campingUrl = `https://nomad-backend-ga8z.onrender.com/camping?query=${query}`;
 
 
   try {
