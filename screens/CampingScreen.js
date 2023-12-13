@@ -162,7 +162,7 @@ const CampingCard = ({campground}) => {
 
       {/* CAMPING CARD! */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={style.campingStyle}>Camping</Text>
+        <Text style={style.campingStyle}>Camping </Text>
 
         <View>
           <FlatList 
@@ -201,6 +201,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 50,
     fontFamily: 'AmaticSC_700Bold',
+    marginTop:-10
   },
   backArrow: {
     marginTop:30,
