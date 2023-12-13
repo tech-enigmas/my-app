@@ -35,8 +35,7 @@ const BlogScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch blogs from your backend
-    fetch('http://localhost:3001/posts') // Update with your backend API endpoint
+    fetch('http://localhost:3001/posts') // Update with API endpoint EXPO_PUBLIC_SERVER?
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
