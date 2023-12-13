@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
-import DiscoverScreen from './screens/DiscoverScreen';
+import DiscoverScreen from './screens/GoogleMaps/DiscoverScreen';
 import HikingScreen from './screens/HikingScreen';
 import TrailDetailsScreen from './screens/TrailDetailsScreen';
 import CampingScreen from './screens/CampingScreen';
