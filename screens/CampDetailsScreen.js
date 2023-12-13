@@ -29,7 +29,7 @@ const CampDetailsScreen = ({navigation, route}) => {
       .catch((error) => {
         console.error('Error fetching trips', error);
       });
-  }, [campground.facilityId]);
+  }, []);
 
   const saveTrip = async () => {
     const tripDetails = {
@@ -41,7 +41,7 @@ const CampDetailsScreen = ({navigation, route}) => {
       },
     };
     try {
-      const response = await fetch(process.env.EXPO_PUBLIC_SERVER,
+      const response = await fetch('https://nomad-backend-ga8z.onrender.com/travel-routes',
         {
           method: 'POST',
           headers: {
@@ -53,7 +53,7 @@ const CampDetailsScreen = ({navigation, route}) => {
 
       if(response.ok) {
         console.log('trip saved', data);
-        setTrips((prevTrips) => [...prevTrips, tripDetails])
+        // setTrips((prevTrips) => [...prevTrips, tripDetails])
       } else {
         console.error(data.error);
       }

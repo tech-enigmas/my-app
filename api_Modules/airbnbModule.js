@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getAirbnb = async (query) => {
 
-    const airBnbUrl = 'http://localhost:3001/airbnb'
+    const airBnbUrl = 'https://nomad-backend-ga8z.onrender.com/airbnb'
 console.log(process.env.EXPO_PUBLIC_AIRBNB_API_KEY);
 try {
     const response = await axios.get(

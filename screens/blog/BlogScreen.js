@@ -37,7 +37,8 @@ const BlogScreen = ({ navigation }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/posts')
+    fetch('https://nomad-backend-ga8z.onrender.com/posts')
+
       .then((response) => response.json())
       .then((data) => {
         setBlog(data);
@@ -68,13 +69,14 @@ const BlogScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/posts', {
+      const response = await fetch('https://nomad-backend-ga8z.onrender.com/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(blogPost),
       });
+
 
       if (response.ok) {
         const data = await response.json();
