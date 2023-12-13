@@ -67,44 +67,44 @@ const AirbnbCard = ({bnb}) => {
   )
 }
 
-const PopAirbnbCard = ({popAirbnb}) => {
-  return (
-    <ImageBackground
-    style={style.popCardImage}
-      source={popAirbnb.image}>
-      <Text
-        style={{
-          color: 'ivory',
-          fontSize: 25,
-          fontWeight: 'bold',
-          marginTop: 10
-        }}>
-          {popAirbnb.name}
-        </Text>
-        <View 
-        style={{
-          flex: 1,
-          justifyContent: 'space-between',
-          alignItems: 'flex-end'
-        }}>
-        <View style={{width:'100%', flexDirection:'column',marginTop:10}}>
-          <View style={{flexDirection:'row'}}>
-            <Icon name='place' size={22} color='ivory'/>
-            <Text style={{color: 'ivory', fontWeight:'bold', marginLeft:5}}>{popAirbnb.location}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Icon name='star' size={22} color='gold'/>
-            <Text style={{color:'ivory', marginLeft:5}}>{popAirbnb.rating}</Text>
-          </View>
-        </View>
-        <View style={{flexDirection:'column'}}>
-          <Text style={{color:'ivory', fontWeight: 'bold', fontSize:20, marginBottom: 5}}>${popAirbnb.price}</Text>
-          <Text style={{color: 'ivory'}}>{popAirbnb.details}</Text>
-        </View>
-      </View>
-    </ImageBackground>
-  )
-}
+// const PopAirbnbCard = ({popAirbnb}) => {
+//   return (
+//     <ImageBackground
+//     style={style.popCardImage}
+//       source={popAirbnb.image}>
+//       <Text
+//         style={{
+//           color: 'ivory',
+//           fontSize: 25,
+//           fontWeight: 'bold',
+//           marginTop: 10
+//         }}>
+//           {popAirbnb.name}
+//         </Text>
+//         <View 
+//         style={{
+//           flex: 1,
+//           justifyContent: 'space-between',
+//           alignItems: 'flex-end'
+//         }}>
+//         <View style={{width:'100%', flexDirection:'column',marginTop:10}}>
+//           <View style={{flexDirection:'row'}}>
+//             <Icon name='place' size={22} color='ivory'/>
+//             <Text style={{color: 'ivory', fontWeight:'bold', marginLeft:5}}>{popAirbnb.location}</Text>
+//           </View>
+//           <View style={{flexDirection: 'row'}}>
+//             <Icon name='star' size={22} color='gold'/>
+//             <Text style={{color:'ivory', marginLeft:5}}>{popAirbnb.rating}</Text>
+//           </View>
+//         </View>
+//         <View style={{flexDirection:'column'}}>
+//           <Text style={{color:'ivory', fontWeight: 'bold', fontSize:20, marginBottom: 5}}>${popAirbnb.price}</Text>
+//           <Text style={{color: 'ivory'}}>{popAirbnb.details}</Text>
+//         </View>
+//       </View>
+//     </ImageBackground>
+//   )
+// }
   return (
     <SafeAreaView>
     <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
@@ -138,13 +138,13 @@ const PopAirbnbCard = ({popAirbnb}) => {
         renderItem={({item})=> <AirbnbCard bnb={item}/>}
         />
       <Text style={style.bnbStyle}>Most Popular</Text>
-      <FlatList
+      {/* <FlatList
       contentContainerStyle={{paddingLeft:20, paddingBottom:20}}
       showsHorizontalScrollIndicator={false}
       horizontal
       data={popAirbnb}
       renderItem={({item}) => <PopAirbnbCard popAirbnb={item}/>}
-      />
+      /> */}
       </View>
       </ScrollView>
     </SafeAreaView>
