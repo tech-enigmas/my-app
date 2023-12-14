@@ -10,12 +10,12 @@ import axios from 'axios';
 export const getAirbnb = async (query) => {
 
 
-const airBnbUrl = `http://localhost:3001/airbnb?location=${query}&checkin=${'2023-09-16'}&checkout=${'2023-09-17'}&adults=${'1'}&children=${'0'}&pets=${'0'}`;
+const airBnbUrl = `https://nomad-backend-ga8z.onrender.com/airbnb?location=${query}&checkin=${'2023-12-16'}&checkout=${'2023-12-17'}&adults=${'1'}&children=${'0'}&pets=${'0'}`;
 
 try {
     const response = await axios.get(airBnbUrl, 
    );console.log(response.data);
-    return response.data;
+    return response.data.results;
 
 } catch (error) {
     console.error('Error fetching airbnbs', error);
