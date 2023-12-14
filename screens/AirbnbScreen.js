@@ -9,6 +9,7 @@ import {
   StyleSheet, 
   Pressable, 
   Text, 
+  TextInput,
   View, 
   TouchableOpacity 
 } from 'react-native'
@@ -18,15 +19,33 @@ import airbnb from '../constants/airbnb';
 import popAirbnb from '../constants/popAirbnb';
 import * as Haptics from 'expo-haptics';
 import { getAirbnb  } from '../api_Modules/airbnbModule';
+// import Carousel from 'react-native-snap-carousel';
+
 
 const AirbnbScreen = ({navigation}) => {
 const [airbnb, setAirbnb] = useState([]);
+const [searchAirbnb, setSearchAirbnb] = useState('');
+
+const fetchAirbnbs = async () => {
+  try {
+    console.log('we made it!', searchAirbnb)
+    const data = await getAirbnb(searchAirbnb);
+    console.log(data);
+    setAirbnb(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+const handleExplore = () => {
+  getAirbnb();
+}
 
 useEffect(() => {
   const fetchAirbnb = async () => {
     try {
-      const data = await getAirbnb([]);
-      setAirbnb(data);
+      const data = await getAirbnb();
+      setAirbnb(data.results);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -34,36 +53,39 @@ useEffect(() => {
   fetchAirbnb();
 }, []);
 
-const AirbnbCard = ({bnb}) => {
+const AirbnbCard = ({airbnbItem}) => {
+  if(!airbnb) return <></>
   return (
-    // <TouchableOpacity 
-    //   activeOpacity={0.8}
-    //   onPress={()=>navigation.navigate('BnbDetails', bnb)}
-    //   onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
-    // <ImageBackground source={bnb.image} style={style.cardImage}>
-    //     <Text style={{
-    //       color:'ivory',
-    //       fontSize:20,
-    //       fontWeight:'bold',
-    //     }}>
-    //     {bnb.name}
-    //   </Text>
-    //   <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
-    //       <View style={{flexDirection: 'row'}}>
-    //         <Icon name='place' size={20} color='ivory'/>
-    //         <Text style={{marginLeft: 5, color:'ivory'}}>
-    //           {bnb.location}
-    //         </Text>
-    //       </View>
-    //     </View>
-    //   </ImageBackground>
-    // </TouchableOpacity>
     <View>
-      <Text>Airbnb List</Text>
-      {airbnb.map(airbnb => (
-        <Text key={airbnb.name}>{airbnb.name}</Text>
-      ))}
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={()=>navigation.navigate('BnbDetails', airbnbItem)}
+      onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+      <View key={airbnbItem.name}>
+     <ImageBackground source={airbnbItem?.images?.[0]?.URL ? airbnbItem.images[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}> 
+        <Text style={{
+          color:'black',
+          fontSize:20,
+          fontWeight:'bold',
+        }}>
+        {airbnbItem.name}
+      </Text>
+      <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Icon name='place' size={20} color='black'/>
+            <Text style={{marginLeft: 5, color:'black'}}>
+              {airbnbItem.name}
+            </Text>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
+    </TouchableOpacity>
+ </View>
+  
+   
+   
+    
   )
 }
 
@@ -123,6 +145,41 @@ const AirbnbCard = ({bnb}) => {
         size={28} color='#0096c7' 
         onPress={navigation.goBack}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}/>
+            <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{backgroundColor: 'white', borderRadius: 7,  height:50, paddingHorizontal: 10}}>
+          <View style={{flex:1}}>
+            {/* <Text style={style.headingTitle}>Discover what's out there...</Text> */}
+            <View style={style.inputContainer}>
+              <Icon name='explore' size={28} margin={3}/>
+              <TextInput
+                  placeholder="Where are you going?"
+                  style={{color: 'black'}}
+                  onChangeText={(text) => setSearchAirbnb(text)}
+                />
+            </View>
+          </View>
+        </View>
+      <View>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        style={style.goBtn}
+        onPress={()=>  { Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)
+        fetchAirbnbs()}}>
+
+        <View>
+        <Text
+          style={{
+            color:'#0096C7',
+            fontSize: 15,
+            fontWeight:'bold',
+            fontFamily: 'AmaticSC_700Bold',
+            letterSpacing: 2,
+          }}>Search this area
+        </Text>
+        </View>
+      </TouchableOpacity>
+      </View>
+      </ScrollView>
     </View>
     
     
@@ -135,7 +192,8 @@ const AirbnbCard = ({bnb}) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={airbnb} 
-        renderItem={({item})=> <AirbnbCard bnb={item}/>}
+        // keyExtractor={(item) => item.name}
+        renderItem={({item})=> <AirbnbCard airbnbItem={item}/>}
         />
       <Text style={style.bnbStyle}>Most Popular</Text>
       {/* <FlatList
