@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // import DatePicker from "react-native-modern-datepicker";
 // import { getFormatedDate } from "react-native-modern-datepicker";
 import * as Haptics from 'expo-haptics';
-import TripContext from '../context/ProfileContext';
+import TripContext from '../../context/ProfileContext';
 
 const CampDetailsScreen = ({navigation, route}) => {
   const campground = route.params;
@@ -15,7 +15,7 @@ const CampDetailsScreen = ({navigation, route}) => {
 
   const addToTrip = () => {
     setTrips((prevTrips) => [...prevTrips, campground]);
-    setTripModal(true);
+    setTripModal(true)
   }
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const CampDetailsScreen = ({navigation, route}) => {
           },
           body: JSON.stringify(tripDetails),
         });
-      const data = await repsonse.json();
+      const data = await response.json();
 
       if(response.ok) {
         console.log('trip saved', data);

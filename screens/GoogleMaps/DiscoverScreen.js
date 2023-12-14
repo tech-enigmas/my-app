@@ -44,6 +44,13 @@ const DiscoverScreen = ({ navigation }) => {
       // </View>
       <View style={style.categoryContainer}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+          onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+          <View style={style.iconContainer}>
+            <Icons name='home' size={28} color='ivory' />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => navigation.navigate('Hiking')}
           onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
           <View style={style.iconContainer}>
