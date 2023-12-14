@@ -15,8 +15,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 const {width} = Dimensions.get('screen');
-import trails from '../constants/trails';
-import popTrails from '../constants/popTrails';
+import trails from '../../constants/trails';
+import popTrails from '../../constants/popTrails';
 import * as Haptics from 'expo-haptics';
 import { MenuContext,
   Menu,
