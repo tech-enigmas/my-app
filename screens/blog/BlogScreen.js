@@ -38,9 +38,15 @@ const BlogScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetch('https://nomad-backend-ga8z.onrender.com/posts')
-
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
+        console.log(data);
         setBlog(data);
         setLoading(false);
       })
@@ -60,12 +66,6 @@ const BlogScreen = ({ navigation }) => {
     const blogPost = {
       title: title,
       body: details,
-      id: 1,
-      status: true,
-      userId: 100,
-      keyWord: [],
-      likes: 0,
-      comments: [],
     };
 
     try {
@@ -76,16 +76,15 @@ const BlogScreen = ({ navigation }) => {
         },
         body: JSON.stringify(blogPost),
       });
-
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log('Blog saved successfully:', data);
-
+  
         // Optimistic UI update: Add the new blog to the state
         setBlog([...blog, data]);
-
-        // Clear input fields
+  
+        
         setTitle('');
         setDetails('');
       } else {
@@ -94,13 +93,6 @@ const BlogScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Error:', error);
     }
-  };
-
-  const toggleExpand = (id) => {
-    setExpanded((prevExpanded) => ({
-      ...prevExpanded,
-      [id]: !prevExpanded[id],
-    }));
   };
 
   return (
@@ -205,7 +197,7 @@ const style = StyleSheet.create({
     height: 40,
     marginVertical: 10,
     borderWidth: 1,
-    borderColor: '#f294f2',
+    borderColor: '#409c9b',
     borderRadius: 8,
     padding: 10,
   },
@@ -213,7 +205,7 @@ const style = StyleSheet.create({
     height: 120,
     marginVertical: 10,
     borderWidth: 1,
-    borderColor: '#f294f2',
+    borderColor: '#409c9b',
     borderRadius: 8,
     padding: 10,
     textAlignVertical: 'top',

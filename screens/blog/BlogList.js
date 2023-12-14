@@ -31,17 +31,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 16,
-    color: '#333333', // Dark gray text color
+    color: '#333333',
   },
   blogItem: {
     marginBottom: 16,
-    backgroundColor: '#f9f9f9', // Light gray background
+    backgroundColor: '#f9f9f9', 
     padding: 10,
     borderRadius: 8,
-    borderWidth: 1, // Add border
-    borderColor: '#f294f2', // Border color
-    elevation: 2, // Shadow on Android
-    shadowColor: '#000000', // Shadow on iOS
+    borderWidth: 1,
+    borderColor: '#f294f2', 
+    shadowColor: '#000000', 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
   },
@@ -49,11 +48,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#333333', // Dark gray text color
+    color: '#333333', 
   },
   details: {
     fontSize: 16,
-    color: '#666666', // Medium gray text color
+    color: '#666666', 
   },
 });
 

@@ -218,7 +218,7 @@ const handleExplore = (e) => {
           </Modal> */}
 
 
-    !!! FOR THE CAMPING DETAILS PAGE !!!
+    // !!! FOR THE CAMPING DETAILS PAGE !!!
 
 
   // const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
