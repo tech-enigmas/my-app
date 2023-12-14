@@ -1,13 +1,18 @@
 import axios from 'axios';
+// import React, { useState } from 'react'
+
+// const [checkin, setCheckin] = useState('');
+// const [checkout, setCheckout] = useState('');
+// const [adults, setAdults] = useState('');
+// const [children, setChildren] = useState('');
+// const [pets, setPets] = useState('');
 
 export const getAirbnb = async (query) => {
 
-    const airBnbUrl = 'http://localhost:3001/airbnb'
-console.log(process.env.EXPO_PUBLIC_AIRBNB_API_KEY);
+const airBnbUrl = `http://localhost:3001/airbnb?location=${query}&checkin=${checkin}&checkout=${checkout}&adults=${adults}&children=${children}&pets=${pets}`;
 try {
-    const response = await axios.get(
-        airBnbUrl
-    );
+    const response = await axios.get(airBnbUrl, 
+   );console.log(response.data);
     return response.data;
 
 } catch (error) {
@@ -15,6 +20,7 @@ try {
     throw error;
     }
 };
+
 // const apiCall = async (params)=>{
 
 //     const options = {
