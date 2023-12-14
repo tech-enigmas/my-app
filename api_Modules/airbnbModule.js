@@ -9,7 +9,9 @@ import axios from 'axios';
 
 export const getAirbnb = async (query) => {
 
+
 const airBnbUrl = `http://localhost:3001/airbnb?location=${query}&checkin=${checkin}&checkout=${checkout}&adults=${adults}&children=${children}&pets=${pets}`;
+
 try {
     const response = await axios.get(airBnbUrl, 
    );console.log(response.data);

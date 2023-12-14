@@ -47,7 +47,7 @@ const BlogScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3001/posts'
+      const response = await fetch('https://nomad-backend-ga8z.onrender.com/posts'
 , {    //  <------ put the server here
         method: 'POST',
         headers: {

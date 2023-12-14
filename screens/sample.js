@@ -176,7 +176,7 @@ const handleExplore = (e) => {
   )
 
 
-  const campingUrl = `http://localhost:3001/camping?query=${query}`;
+  const campingUrl = `https://nomad-backend-ga8z.onrender.com/camping?query=${query}`;
           {/* <View>
             <Text>Check Availability</Text>
             <TouchableOpacity onPress={handleOnPressStartDate}>

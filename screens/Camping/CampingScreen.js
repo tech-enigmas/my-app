@@ -16,7 +16,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const {width} = Dimensions.get('screen');
 import * as Haptics from 'expo-haptics';
-import { getCampgrounds } from '../api_Modules/campingdb';
+import { getCampgrounds } from '../../api_Modules/campingdb';
 // import CampingCard from './CampingCard';
 import { 
   Menu,
@@ -48,6 +48,7 @@ const CampingCard = ({campground}) => {
 
   if(!campground) return <></>
   return (
+
 
     <View>
       <TouchableOpacity 
@@ -162,7 +163,7 @@ const CampingCard = ({campground}) => {
 
       {/* CAMPING CARD! */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={style.campingStyle}>Camping</Text>
+        <Text style={style.campingStyle}>Camping </Text>
 
         <View>
           <FlatList 
@@ -201,6 +202,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 50,
     fontFamily: 'AmaticSC_700Bold',
+    marginTop:-10
   },
   backArrow: {
     marginTop:30,

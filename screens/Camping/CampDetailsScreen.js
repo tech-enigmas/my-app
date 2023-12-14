@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, StyleSheet, StatusBar, ImageBackground, TouchableOpacity, Pressable, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import DatePicker from "react-native-modern-datepicker";
 // import { getFormatedDate } from "react-native-modern-datepicker";
 import * as Haptics from 'expo-haptics';
-import TripContext from '../context/ProfileContext';
+import TripContext from '../../context/ProfileContext';
 
 const CampDetailsScreen = ({navigation, route}) => {
   const campground = route.params;
@@ -15,8 +15,54 @@ const CampDetailsScreen = ({navigation, route}) => {
 
   const addToTrip = () => {
     setTrips((prevTrips) => [...prevTrips, campground]);
-    setTripModal(true);
+    setTripModal(true)
   }
+
+  useEffect(() => {
+    fetch('EXPO_PUBLIC_SERVER/travel-routes')
+    // fetch(`https://ridb.recreation.gov/api/v1/facilities/${campground.facilityId}?apikey=EXPO_PUBLIC_CAMPING_API_KEY`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTrip(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching trips', error);
+      });
+  }, []);
+
+  const saveTrip = async () => {
+    const tripDetails = {
+      location: campground.site,
+      campsite: {
+        site: campground.site,
+        fee: campground.fee || 'FREE',
+        description: campground.description,
+      },
+    };
+    try {
+      const response = await fetch('https://nomad-backend-ga8z.onrender.com/travel-routes',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/JSON',
+          },
+          body: JSON.stringify(tripDetails),
+        });
+      const data = await response.json();
+
+      if(response.ok) {
+        console.log('trip saved', data);
+        // setTrips((prevTrips) => [...prevTrips, tripDetails])
+      } else {
+        console.error(data.error);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    setTrips(TripContext);
+  }
+
   return (
     <SafeAreaView style={{flex:1, backgroundColor:'#e4f6f8'}}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
@@ -126,6 +172,7 @@ const CampDetailsScreen = ({navigation, route}) => {
 
         </View>
           <Pressable activeOpacity={0.2} 
+            onPress={saveTrip}
             onPressIn={()=>setTripModal(true)
             }>
             <Text 

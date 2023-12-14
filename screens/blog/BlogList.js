@@ -9,7 +9,7 @@ const BlogList = ({ blogs, toggleExpand, expanded }) => {
       <Text style={styles.header}>List of Blogs</Text>
       <FlatList
         data={blogs}
-        keyExtractor={(item) => item._id.toString()} // Assuming your blog objects have an "_id" property
+        keyExtractor={(item) => item._id.toString()}
         renderItem={({ item }) => (
           <View style={styles.blogItem}>
             <TouchableOpacity onPress={() => toggleExpand(item._id)}>
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default BlogList;
+export default BlogList;
