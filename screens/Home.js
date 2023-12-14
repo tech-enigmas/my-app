@@ -57,7 +57,9 @@ const Home = ({navigation})  => {
 
             </MenuOptions>
           </Menu>
-        <Icon name='person' size={28} color='#0096c7'/>
+        <Icon name='person' size={28} color='#0096c7'
+                  onPress={()=>navigation.navigate('Profile')}
+                  />
       </View>
       </MenuProvider>
         <Text style={styles.titleText}>NOMAD</Text>
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 102,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
     marginBottom:-170
   },
   subtitleText: {
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   btn: {
     flex:1,
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   heading: {
     paddingVertical: 20, 
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
     margin:10,
   },
   menuOption:{
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   }
 });
 

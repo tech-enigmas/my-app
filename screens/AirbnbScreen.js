@@ -228,7 +228,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 50,
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   cardImage: {
     height: 220,

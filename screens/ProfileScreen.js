@@ -1,5 +1,14 @@
 import React, { createContext, useEffect, useState, useContext } from 'react'
-import {ImageBackground, Dimensions, SafeAreaView, Text, View, StyleSheet, useColorScheme} from 'react-native';
+import {
+  ImageBackground, 
+  Dimensions, 
+  SafeAreaView, 
+  Text, 
+  View, 
+  StyleSheet, 
+  ScrollView,
+  Pressable
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as Haptics from 'expo-haptics';
 import TripContext from '../context/ProfileContext';
@@ -13,7 +22,17 @@ const ProfileScreen = ({navigation}) => {
   // const [error, setError ] = useState('');
   const { trips } = useContext(TripContext);
   console.log(trips);
+  const [error, setError] = useState(false);
 
+  const deleteTrip = async (tripId) => {
+    try {
+      await axios.delete(`deleteTravelRoute/${tripId}`);
+      setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+      setError('Could not delete trip');
+    }
+  };
  
   useEffect(() => {
     const getTrip = async ()=> {
@@ -48,11 +67,12 @@ const ProfileScreen = ({navigation}) => {
     // const campground = route.params;
    
     return (
+      
       <View>
        {trips.map((campground, index)=>(
           <View>
             <View key={campground.site}>
-              <ImageBackground source={campground?.image?.[0]?.URL ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
+              <ImageBackground source={campground?.image?.[0]?.URL ? {uri:campground.image[0].URL} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
                 <Text style={{
                 color: 'ivory',
                 fontSize: 20,
@@ -68,6 +88,12 @@ const ProfileScreen = ({navigation}) => {
                     </Text>
                   </View>
                 </View>
+                <View style={style.centeredView}>
+          <View style={style.modalView}>
+            <Icon name='delete' size={28} color='ivory' onPress={() => deleteTrip(campground.id)}/>
+        
+          </View>
+        </View>
               </ImageBackground>
             </View>
             </View>
@@ -80,6 +106,8 @@ const ProfileScreen = ({navigation}) => {
 // }
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#e4f6f8'}}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+
         <View style={style.heading}>
         <Icon name='menu' size={28} color='#0096c7'/>
         </View>
@@ -97,6 +125,8 @@ const ProfileScreen = ({navigation}) => {
       <View>
       <Text style={style.tripsStyle}>Your Favorites</Text>
       </View>
+      </ScrollView>
+
     </SafeAreaView>
   )
 }
@@ -120,7 +150,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 50,
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   cardImage: {
     height: 220,

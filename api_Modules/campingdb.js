@@ -17,4 +17,5 @@ export const getCampgrounds = async (query) => {
     console.error('Error fetching campgrounds:', error);
     throw error;
   }
+
 };
