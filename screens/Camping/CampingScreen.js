@@ -45,7 +45,6 @@ const CampingScreen = ({navigation}) => {
 
 
 const CampingCard = ({campground}) => {
-
   if(!campground) return <></>
   return (
 
@@ -56,7 +55,7 @@ const CampingCard = ({campground}) => {
       onPress={()=>navigation.navigate('CampingDetails', campground)}
       onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
         <View key={campground.site}>
-          <ImageBackground source={campground?.image?.[0]?.URL ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
+          <ImageBackground source={campground?.image?.[0]?.URL ? { uri: campground.image[0].URL} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}>
           <Text style={{
             color: 'ivory',
             fontSize: 20,
@@ -152,7 +151,7 @@ const CampingCard = ({campground}) => {
                 color:'ivory', 
                 fontSize: 30, 
                 fontWeight:'bold',
-                fontFamily: 'AmaticSC_700Bold',
+                // fontFamily: 'AmaticSC_700Bold',
                 letterSpacing: 2,
               }}>Search this area
             </Text> 
@@ -201,7 +200,7 @@ const style = StyleSheet.create({
     marginVertical: 120,
     fontWeight: 'bold',
     fontSize: 50,
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
     marginTop:-10
   },
   backArrow: {
@@ -222,7 +221,7 @@ const style = StyleSheet.create({
   headingTitle: {
     color: '#0096c7',
     fontWeight: 'bold',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
     fontSize: 40,
     fontWeight: 'bold',
     letterSpacing: 2,
@@ -256,7 +255,7 @@ const style = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
 })
 

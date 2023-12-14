@@ -139,7 +139,7 @@ const handleExplore = (e) => {
             color:'ivory', 
             fontSize: 30, 
             fontWeight:'bold',
-            fontFamily: 'AmaticSC_700Bold',
+            // fontFamily: 'AmaticSC_700Bold',
             letterSpacing: 2,
           }}>Search this area
 

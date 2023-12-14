@@ -12,8 +12,6 @@ import {
   FlatList,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
-
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   MenuContext,
@@ -24,6 +22,7 @@ import {
   MenuProvider,
 } from 'react-native-popup-menu';
 import Collapsible from 'react-native-collapsible';
+import BlogList from './BlogList';
 
 
 
@@ -38,13 +37,14 @@ const BlogScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetch('https://nomad-backend-ga8z.onrender.com/posts')
-      .then((response) => {
+    .then((response) => {
         if (!response.ok) {
           console.log(response);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
+
       .then((data) => {
         console.log(data);
         setBlog(data);
@@ -80,15 +80,16 @@ const BlogScreen = ({ navigation }) => {
       if (response.ok) {
         const data = await response.json();
         console.log('Blog saved successfully:', data);
-  
-        // Optimistic UI update: Add the new blog to the state
+
+
         setBlog([...blog, data]);
-  
-        
+
+
         setTitle('');
         setDetails('');
       } else {
-        console.error('Failed to save blog:', data.error);
+        const responseData = await response.json();
+        console.error('Failed to save blog:', responseData.error);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -101,6 +102,7 @@ const BlogScreen = ({ navigation }) => {
         <Text style={style.header}>List of Blogs</Text>
       </View>
 
+      <BlogList/>
       {loading ? (
         <Text>Loading...</Text>
       ) : error ? (

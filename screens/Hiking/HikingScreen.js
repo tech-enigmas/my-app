@@ -164,7 +164,7 @@ const style = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   heading: {
     paddingVertical: 10, 
@@ -176,7 +176,7 @@ const style = StyleSheet.create({
   headingTitle: {
     color: '#66BCD9',
     fontWeight: 'bold',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
     fontSize: 30,
     fontWeight: 'bold',
     textAlign:'center',
@@ -200,7 +200,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 50,
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   cardImage: {
     height: 220,

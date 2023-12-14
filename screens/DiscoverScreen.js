@@ -114,7 +114,7 @@ const DiscoverScreen = ({ navigation }) => {
             color:'ivory', 
             fontSize: 30, 
             fontWeight:'bold',
-            fontFamily: 'AmaticSC_700Bold',
+            // fontFamily: 'AmaticSC_700Bold',
             letterSpacing: 2,
           }}>Search this area
 
@@ -144,7 +144,7 @@ const style = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   goBtn: {
     flex: 1,
@@ -159,7 +159,7 @@ const style = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
   },
   heading: {
     paddingVertical: 10, 
@@ -171,7 +171,7 @@ const style = StyleSheet.create({
   headingTitle: {
     color: '#0096c7',
     fontWeight: 'bold',
-    fontFamily: 'AmaticSC_700Bold',
+    // fontFamily: 'AmaticSC_700Bold',
     fontSize: 40,
     fontWeight: 'bold',
     letterSpacing: 2,
