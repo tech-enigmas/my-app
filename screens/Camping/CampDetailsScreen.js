@@ -19,12 +19,12 @@ const CampDetailsScreen = ({navigation, route}) => {
   }
 
   useEffect(() => {
-    fetch('EXPO_PUBLIC_SERVER/travel-routes')
+    fetch('https://nomad-backend-ga8z.onrender.com/travel-routes')
     // fetch(`https://ridb.recreation.gov/api/v1/facilities/${campground.facilityId}?apikey=EXPO_PUBLIC_CAMPING_API_KEY`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setTrip(data);
+        setTrips(data);
       })
       .catch((error) => {
         console.error('Error fetching trips', error);
@@ -77,7 +77,7 @@ const CampDetailsScreen = ({navigation, route}) => {
       </Pressable>
     </View>
 
-      <ImageBackground style={{flex:0.7}} source={campground.image[0] ? campground.image[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
+      <ImageBackground style={{flex:0.7}} source={campground.image[0] ? {uri:campground.image[0].URL} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
         <View style={style.imageHeading}>
           <Icon 
             name='arrow-back-ios' 
@@ -139,7 +139,12 @@ const CampDetailsScreen = ({navigation, route}) => {
             {campground.site}
           </Text>
         </View>
-        <Text style={{marginTop:20, fontWeight:'bold', fontSize:45, fontFamily: 'AmaticSC_700Bold' }}>
+        <Text style={{
+          marginTop:20, 
+          fontWeight:'bold', 
+          fontSize:45, 
+          // fontFamily: 'AmaticSC_700Bold' 
+          }}>
           Campsite Details
         </Text>
         <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>Fee:{campground?.fee ? campground.fee : ' FREE'}</Text>
@@ -262,7 +267,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     fontSize:25,
     fontWeight:'bold',
-    fontFamily: 'AmaticSC_700Bold'
+    // fontFamily: 'AmaticSC_700Bold'
   },
   modalView: {
     margin: 20,

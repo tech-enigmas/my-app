@@ -86,7 +86,12 @@ const TrailDetailsScreen = ({navigation, route}) => {
                 {trail.location}
             </Text>
           </View>
-          <Text style={{marginTop:20, fontWeight:'bold', fontSize:45, fontFamily: 'AmaticSC_700Bold'}}>
+          <Text style={{
+            marginTop:20, 
+            fontWeight:'bold', 
+            fontSize:45, 
+            // fontFamily: 'AmaticSC_700Bold'
+            }}>
               Trail Details
           </Text>
           <Text style={{marginTop: 5, fontSize:15}}>{trail.difficulty}</Text>
@@ -192,7 +197,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     fontSize:25,
     fontWeight:'bold',
-    fontFamily: 'AmaticSC_700Bold'
+    // fontFamily: 'AmaticSC_700Bold'
   },
   modalView: {
     margin: 20,
