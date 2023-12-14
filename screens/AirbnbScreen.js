@@ -37,21 +37,21 @@ const fetchAirbnbs = async () => {
   }
 };
 
-const handleExplore = () => {
-  getAirbnb();
-}
+// const handleExplore = () => {
+//   getAirbnb();
+// }
 
-useEffect(() => {
-  const fetchAirbnb = async () => {
-    try {
-      const data = await getAirbnb();
-      setAirbnb(data.results);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-  fetchAirbnb();
-}, []);
+// useEffect(() => {
+//   const fetchAirbnb = async () => {
+//     try {
+//       const data = await getAirbnb();
+//       setAirbnb(data.results);
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
+//   };
+//   fetchAirbnb();
+// }, []);
 
 const AirbnbCard = ({airbnbItem}) => {
   if(!airbnb) return <></>
@@ -62,7 +62,7 @@ const AirbnbCard = ({airbnbItem}) => {
       onPress={()=>navigation.navigate('BnbDetails', airbnbItem)}
       onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
       <View key={airbnbItem.name}>
-     <ImageBackground source={airbnbItem?.images?.[0]?.URL ? airbnbItem.images[0].URL : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}> 
+     <ImageBackground source={airbnbItem?.images?.[0] ? {uri: airbnbItem.images[0]} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}> 
         <Text style={{
           color:'black',
           fontSize:20,
@@ -195,7 +195,7 @@ const AirbnbCard = ({airbnbItem}) => {
         // keyExtractor={(item) => item.name}
         renderItem={({item})=> <AirbnbCard airbnbItem={item}/>}
         />
-      <Text style={style.bnbStyle}>Most Popular</Text>
+    
       {/* <FlatList
       contentContainerStyle={{paddingLeft:20, paddingBottom:20}}
       showsHorizontalScrollIndicator={false}
