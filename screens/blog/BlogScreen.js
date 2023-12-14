@@ -12,6 +12,8 @@ import {
   FlatList,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
+
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   MenuContext,
@@ -22,7 +24,6 @@ import {
   MenuProvider,
 } from 'react-native-popup-menu';
 import Collapsible from 'react-native-collapsible';
-import BlogList from './BlogList';
 
 
 
@@ -37,14 +38,13 @@ const BlogScreen = ({ navigation }) => {
 
   useEffect(() => {
     fetch('https://nomad-backend-ga8z.onrender.com/posts')
-    .then((response) => {
+      .then((response) => {
         if (!response.ok) {
           console.log(response);
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
-
       .then((data) => {
         console.log(data);
         setBlog(data);
@@ -69,32 +69,37 @@ const BlogScreen = ({ navigation }) => {
     };
 
     try {
-      const response = await fetch('https://nomad-backend-ga8z.onrender.com/posts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(blogPost),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Blog saved successfully:', data);
+    const response = await fetch('https://nomad-backend-ga8z.onrender.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(blogPost),
+    });
 
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Blog saved successfully:', data);
 
-        setBlog([...blog, data]);
+      // Optimistic UI update: Add the new blog to the state
+      setBlog([...blog, data]);
 
-
-        setTitle('');
-        setDetails('');
-      } else {
-        const responseData = await response.json();
-        console.error('Failed to save blog:', responseData.error);
-      }
-    } catch (error) {
-      console.error('Error:', error);
+      setTitle('');
+      setDetails('');
+    } else {
+      console.error('Failed to save blog:', data.error);
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+const toggleExpand = (id) => {
+  setExpanded((prevExpanded) => ({
+    ...prevExpanded,
+    [id]: !prevExpanded[id],
+  }));
+};
 
   return (
     <SafeAreaView style={style.container}>
@@ -102,7 +107,6 @@ const BlogScreen = ({ navigation }) => {
         <Text style={style.header}>List of Blogs</Text>
       </View>
 
-      <BlogList/>
       {loading ? (
         <Text>Loading...</Text>
       ) : error ? (
