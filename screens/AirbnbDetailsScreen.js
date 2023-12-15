@@ -1,9 +1,19 @@
-import React, { useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, StatusBar, ImageBackground, TouchableOpacity, Pressable, Modal } from 'react-native'
+import React, { useState, useContext, useEffect } from 'react'
+import { 
+  View, 
+  Text, 
+  SafeAreaView, 
+  StyleSheet, 
+  StatusBar, 
+  ImageBackground, 
+  TouchableOpacity, 
+  Pressable, 
+  Modal 
+} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import * as Haptics from 'expo-haptics';
-import airbnb from '../constants/airbnb';
+// import airbnb from '../constants/airbnb';
+import TripContext from '../context/ProfileContext';
 
 const AirbnbDetailsScreen = ({ navigation, route }) => {
   const airbnbItem = route.params;
@@ -18,13 +28,78 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
     setTripModal(true);
   };
  
+  useEffect(() => {
+    fetch('https://nomad-backend-ga8z.onrender.com/travel-routes')
+    // fetch(`https://ridb.recreation.gov/api/v1/facilities/${campground.facilityId}?apikey=EXPO_PUBLIC_CAMPING_API_KEY`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTrips(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching trips', error);
+      });
+  }, []);
+
+
+  const saveTrip = async () => {
+    const tripDetails = {
+      location: airbnbItem.site,
+      campsite: {
+        city: airbnbItem.city,
+        price: airbnbItem.price,
+        name: airbnbItem.name,
+        rating: airbnbItem.rating
+      },
+    };
+
+  try {
+    const response = await fetch('https://nomad-backend-ga8z.onrender.com/travel-routes',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/JSON',
+        },
+        body: JSON.stringify(tripDetails),
+      });
+    const data = await response.json();
+
+    if(response.ok) {
+      console.log('trip saved', data);
+      // setTrips((prevTrips) => [...prevTrips, tripDetails])
+    } else {
+      console.error(data.error);
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  setTrips(TripContext);
+}
 
  return (
     <SafeAreaView style={{flex:1, backgroundColor:'#e4f6f8'}}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
-     <ImageBackground style={{flex:0.7}} source={airbnbItem?.images?.[0]?.URL ? {uri: airbnb.image[0].URL} :  'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
-
         <View style={style.imageHeading}>
+          <Icon 
+            name='arrow-back-ios' 
+            size={28} color='#0096c7' 
+            onPress={navigation.goBack}
+            onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+            />
+        </View>
+        <View style={style.heading}>
+      <Icon 
+      name='menu' 
+      size={28} 
+      color='#0096c7'/>
+      <Pressable 
+        onPress={()=>navigation.navigate('Profile')}
+        onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
+        <Icon name='person' size={28} color='#0096c7'/>
+      </Pressable>
+    </View>
+      <ImageBackground style={{flex:0.7}} source={airbnbItem.images[0].URL ? {uri: airbnbItem.images[0].URL} :  'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
+      <View style={style.imageHeading}>
           <Icon 
             name='arrow-back-ios' 
             size={28} color='#0096c7' 
@@ -40,11 +115,11 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
             color:'ivory',
             marginBottom: 20
           }}>
-          {airbnb.name}
+          {airbnbItem.name}
           </Text>
           <View style={{flexDirection: 'row'}}>
             <Icon name='star' size={30} color='gold'/>
-            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>{airbnb}</Text>
+            <Text style={{color:'ivory', fontWeight:'bold', fontSize: 20}}>5.0</Text>
           </View>
         </View>
       </ImageBackground>
@@ -82,14 +157,19 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
               fontWeight:'bold',
               color:'#0096c7',
             }}>
-            {airbnb.name}
+            {airbnbItem.name}
           </Text>
         </View>
-        <Text style={{marginTop:20, fontWeight:'bold', fontSize:45, fontFamily: 'AmaticSC_700Bold' }}>
+        <Text style={{
+          marginTop:20, 
+          fontWeight:'bold', 
+          fontSize:45, 
+          // fontFamily: 'AmaticSC_700Bold' 
+          }}>
           Airbnb Details
         </Text>
-        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>${airbnb}</Text>
-        <Text style={{marginTop: 20, lineHeight:22}}>{airbnb.name}</Text>
+        <Text style={{marginTop: 5, marginBottom: -10, fontSize:15, fontWeight: 'bold'}}>$100</Text>
+        <Text style={{marginTop: 20, lineHeight:22}}>{airbnbItem.city}</Text>
       </View>
       <View style={style.footer}>
       <View style={style.addToTripBtn}>
@@ -106,7 +186,8 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
             <Text style={style.modalText}>Added to your trips!</Text>
             <Pressable
               style={[style.button, style.buttonClose]}
-              onPress={() => setTripModal(!tripModal)}>
+              onPress={() => setTripModal(!tripModal)}
+              onPressIn={() => addToTrip()}>
               <Icon name='thumb-up' color='ivory'/>
             </Pressable>
           </View>
@@ -114,7 +195,10 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
         </Modal>
         <View>
              </View>
-          <Pressable activeOpacity={0.2} onPressIn={()=>setTripModal(true)}>
+          <Pressable activeOpacity={0.2}
+            onPress={saveTrip}
+            onPressIn={()=>setTripModal(true)
+          }>
             <Text 
               style={{
                 color:'#0096c7', 
@@ -126,6 +210,7 @@ const AirbnbDetailsScreen = ({ navigation, route }) => {
       </View>
     </SafeAreaView>
   )
+}
 
 const style = StyleSheet.create({
   backArrow: {
@@ -133,6 +218,13 @@ const style = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     paddingHorizontal:20,
+  },
+  heading: {
+    paddingVertical: 10, 
+    paddingHorizontal: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#e4f6f8',
   },
   imageHeading: {
     marginTop:30,
@@ -194,7 +286,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     fontSize:25,
     fontWeight:'bold',
-    fontFamily: 'AmaticSC_700Bold'
+    // fontFamily: 'AmaticSC_700Bold'
   },
   modalView: {
     margin: 20,
@@ -232,5 +324,5 @@ const style = StyleSheet.create({
     marginTop: 22,
   },
 })
-}
+// }
 export default AirbnbDetailsScreen

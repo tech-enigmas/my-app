@@ -66,17 +66,26 @@ const CampDetailsScreen = ({navigation, route}) => {
   return (
     <SafeAreaView style={{flex:1, backgroundColor:'#e4f6f8'}}>
       <StatusBar translucent backgroundColor='rgba(0,0,0,0)'/>
-
+      <View style={style.imageHeading}>
+          <Icon 
+            name='arrow-back-ios' 
+            size={28} color='#0096c7' 
+            onPress={navigation.goBack}
+            onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
+            />
+        </View>
           {/* PROFILE LINK! */}
     <View style={style.heading}>
-      <Icon name='menu' size={28} color='#0096c7'/>
+      <Icon 
+      name='menu' 
+      size={28} 
+      color='#0096c7'/>
       <Pressable 
         onPress={()=>navigation.navigate('Profile')}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
         <Icon name='person' size={28} color='#0096c7'/>
       </Pressable>
     </View>
-
       <ImageBackground style={{flex:0.7}} source={campground.image[0] ? {uri:campground.image[0].URL} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'}>
         <View style={style.imageHeading}>
           <Icon 

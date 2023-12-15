@@ -59,7 +59,7 @@ const AirbnbCard = ({airbnbItem}) => {
     <View>
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={()=>navigation.navigate('BnbDetails', airbnbItem)}
+      onPress={()=>navigation.navigate('AirbnbDetails', airbnbItem)}
       onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}>
       <View key={airbnbItem.name}>
      <ImageBackground source={airbnbItem?.images?.[0] ? {uri: airbnbItem.images[0]} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}> 

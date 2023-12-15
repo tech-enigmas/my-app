@@ -12,6 +12,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import AirbnbScreen from './screens/AirbnbScreen';
 import BlogScreen from './screens/blog/BlogScreen';
 import TripContext from './context/ProfileContext';
+import AirbnbDetailsScreen from './screens/AirbnbDetailsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +32,7 @@ const App = () => {
         <Stack.Screen name="CampingDetails" component={CampDetailsScreen}/>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="Airbnb" component={AirbnbScreen}/>
+        <Stack.Screen name="AirbnbDetails" component={AirbnbDetailsScreen}/>
         <Stack.Screen name="Blog" component={BlogScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
