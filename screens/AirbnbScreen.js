@@ -174,7 +174,7 @@ const AirbnbCard = ({airbnbItem}) => {
             </View>
           </View>
 
-        </View>
+        {/* </View> */}
       <View>
       <TouchableOpacity
         activeOpacity={0.2}
@@ -200,12 +200,9 @@ const AirbnbCard = ({airbnbItem}) => {
       </ScrollView>
     
     
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} >
       <Text style={style.bnbStyle}>Airbnb</Text>
 
-
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={style.bnbStyle}>Airbnb</Text>
 
         <View>
           <FlatList
