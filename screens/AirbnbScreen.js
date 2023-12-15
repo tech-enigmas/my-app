@@ -64,16 +64,21 @@ const AirbnbCard = ({airbnbItem}) => {
       <View key={airbnbItem.name}>
      <ImageBackground source={airbnbItem?.images?.[0] ? {uri: airbnbItem.images[0]} : 'https://openclipart.org/download/325701/tent-0032588nahxbh.svg'} style={style.cardImage}> 
         <Text style={{
-          color:'black',
+          color:'ivory',
           fontSize:20,
           fontWeight:'bold',
         }}>
         {airbnbItem.name}
       </Text>
-      <View style={{flex: 1, justifyContent:'space-between', flexDirection:'row', alignItems: 'flex-end'}}>
+      <View style={{
+        flex: 1, 
+        justifyContent:'space-between', 
+        flexDirection:'row', 
+        alignItems: 'flex-end'
+        }}>
           <View style={{flexDirection: 'row'}}>
-            <Icon name='place' size={20} color='black'/>
-            <Text style={{marginLeft: 5, color:'black'}}>
+            <Icon name='place' size={20} color='ivory'/>
+            <Text style={{marginLeft: 5, color:'ivory'}}>
               {airbnbItem.name}
             </Text>
           </View>
@@ -82,10 +87,6 @@ const AirbnbCard = ({airbnbItem}) => {
     </View>
     </TouchableOpacity>
  </View>
-  
-   
-   
-    
   )
 }
 
@@ -128,7 +129,10 @@ const AirbnbCard = ({airbnbItem}) => {
 //   )
 // }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{
+      flex: 1, 
+      backgroundColor:'#e4f6f8'
+      }}>
     <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
 
       <View style={style.heading}>
@@ -142,13 +146,20 @@ const AirbnbCard = ({airbnbItem}) => {
       <View style={style.backArrow}>
       <Icon 
         name='arrow-back-ios' 
-        size={28} color='#0096c7' 
+        size={28} 
+        color='#0096c7' 
         onPress={navigation.goBack}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}/>
-            <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{backgroundColor: 'white', borderRadius: 7,  height:50, paddingHorizontal: 10}}>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{
+          backgroundColor: 'e4f6f8', 
+          // borderRadius: 7,  
+          height:50, 
+          paddingHorizontal: 10
+          }}>
           <View style={{flex:1}}>
-            {/* <Text style={style.headingTitle}>Discover what's out there...</Text> */}
+            <Text style={style.headingTitle}>Discover what's out there...</Text>
             <View style={style.inputContainer}>
               <Icon name='explore' size={28} margin={3}/>
               <TextInput
@@ -164,15 +175,17 @@ const AirbnbCard = ({airbnbItem}) => {
         activeOpacity={0.2}
         style={style.goBtn}
         onPress={()=>  { Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)
-        fetchAirbnbs()}}>
+        fetchAirbnbs()
+        }}
+        >
 
         <View>
         <Text
           style={{
-            color:'#0096C7',
-            fontSize: 15,
+            color:'ivory',
+            fontSize: 30,
             fontWeight:'bold',
-            fontFamily: 'AmaticSC_700Bold',
+            // fontFamily: 'AmaticSC_700Bold',
             letterSpacing: 2,
           }}>Search this area
         </Text>
@@ -180,7 +193,6 @@ const AirbnbCard = ({airbnbItem}) => {
       </TouchableOpacity>
       </View>
       </ScrollView>
-    </View>
     
     
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -217,6 +229,16 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#e4f6f8',
   },
+  headingTitle: {
+    color: '#0096c7',
+    fontWeight: 'bold',
+    // fontFamily: 'AmaticSC_700Bold',
+    fontSize: 25,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    marginTop: 7,
+    textAlign:'center',
+  },
   backArrow: {
   marginTop:30,
   flexDirection:'row',
@@ -225,10 +247,12 @@ const style = StyleSheet.create({
   },
   bnbStyle:{
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 120,
     fontWeight: 'bold',
     fontSize: 50,
     // fontFamily: 'AmaticSC_700Bold',
+    marginTop:-5
+
   },
   cardImage: {
     height: 220,
@@ -246,6 +270,35 @@ const style = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     padding: 10,
+  },
+  inputContainer: {
+    height: 50,
+    width: '100%',
+    backgroundColor: 'ivory',
+    borderWidth: 1,
+    borderRadius: 7,
+    position: 'absolute',
+    top: 70,
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    elevation: 12,
+    marginBottom:10
+  },
+  goBtn: {
+    flex: 1,
+    height: 40,
+    width: '100%',
+    backgroundColor: '#0096c7',
+    marginTop:90,
+    marginBottom: -90,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    // fontFamily: 'AmaticSC_700Bold',
   },
 })
 

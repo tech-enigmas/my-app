@@ -47,8 +47,6 @@ const CampingScreen = ({navigation}) => {
 const CampingCard = ({campground}) => {
   if(!campground) return <></>
   return (
-
-
     <View>
       <TouchableOpacity 
       activeOpacity={0.8} 
@@ -64,7 +62,12 @@ const CampingCard = ({campground}) => {
             {campground.site}
           </Text>
          
-          <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end' }}>
+          <View style={{ 
+            flex: 1, 
+            justifyContent: 'space-between', 
+            flexDirection: 'row', 
+            alignItems: 'flex-end' 
+            }}>
             <View style={{ flexDirection: 'row' }}>
               <Icon name='place' size={20} color='ivory' />
               <Text style={{ marginLeft: 5, color: 'ivory' }}>
@@ -75,13 +78,15 @@ const CampingCard = ({campground}) => {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-      
     </View>
   )
 }
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor:'#e4f6f8'}}>
+    <SafeAreaView style={{
+      flex: 1, 
+      backgroundColor:'#e4f6f8'
+      }}>
     <StatusBar translucent={false} backgroundColor='#e4f6f8'/>
     {/* PROFILE LINK! */}
     <View style={style.heading}>     
@@ -111,7 +116,7 @@ const CampingCard = ({campground}) => {
       <Icon 
         name='arrow-back-ios' 
         size={28} 
-        olor='#0096c7' 
+        color='#0096c7' 
         onPress={navigation.goBack}
         onPressIn={() => Haptics.selectionAsync(Haptics.ImpactFeedbackStyle.Heavy)}
         />
@@ -201,7 +206,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 50,
     // fontFamily: 'AmaticSC_700Bold',
-    marginTop:-10
+    marginTop:-5
   },
   backArrow: {
     marginTop:30,
@@ -222,7 +227,7 @@ const style = StyleSheet.create({
     color: '#0096c7',
     fontWeight: 'bold',
     // fontFamily: 'AmaticSC_700Bold',
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: 'bold',
     letterSpacing: 2,
     marginTop: 7,

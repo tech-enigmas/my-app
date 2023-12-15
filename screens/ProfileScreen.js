@@ -26,7 +26,8 @@ const ProfileScreen = ({navigation}) => {
 
   const deleteTrip = async (tripId) => {
     try {
-      await axios.delete(`deleteTravelRoute/${tripId}`);
+      await axios.delete(`${process.env.EXPO_PUBLIC_SERVER}/travel-routes/${tripId}`);
+      console.log(tripId);
       setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
     } catch (error) {
       console.error('Error deleting trip:', error);
@@ -50,15 +51,7 @@ const ProfileScreen = ({navigation}) => {
       // }
     }
     getTrip();
-    // fetch(process.env.EXPO_PUBLIC_SERVER)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     setTrip(data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching trips', error);
-    //   });
+
   },[]);
 
   const TripsCampCard = () => {
@@ -89,14 +82,13 @@ const ProfileScreen = ({navigation}) => {
                   </View>
                 </View>
                 <View style={style.centeredView}>
-          <View style={style.modalView}>
-            <Icon name='delete' size={28} color='ivory' onPress={() => deleteTrip(campground.id)}/>
-        
-          </View>
-        </View>
+              <View style={style.modalView}>
+                <Icon name='delete' size={28} color='ivory' onPress={() => deleteTrip(campground.id)}/>
+              </View>
+            </View>
               </ImageBackground>
             </View>
-            </View>
+          </View>
         ))}
       </View>
     )
