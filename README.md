@@ -8,7 +8,7 @@
 
 ## Overview
 
-The vision of this project is to create a web-based app that has functionality to plan a route on
+The vision of this project is to create an ios-based app that has functionality to plan a route on
 a map, check local camping/air bnb lodging, and sign in to save your content. Users will be able
 to check the weather at the destination, as to be able to plan accordingly. Nomad will also have an interactive community travel blogging section as well. This is an all-in-one road trip app.
 
